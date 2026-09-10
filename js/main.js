@@ -23,9 +23,7 @@
     document.getElementById("heroBlessing").textContent = cfg.invitationBlessing;
     document.getElementById("heroInviteLine").textContent = cfg.invitationInviteLine;
 
-    // Derived from the single nikkahDateISO source of truth, so the
-    // invitation-style date block (month / day-name / day-number / year)
-    // always matches the countdown and everywhere else on the site.
+    // Derived from the single nikkahDateISO source of truth
     const nikkahDate = new Date(cfg.nikkahDateISO);
     document.getElementById("heroMonth").textContent =
       nikkahDate.toLocaleDateString("en-US", { month: "long" });
@@ -279,11 +277,9 @@
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
       data.coupleNames = `${cfg.groom} & ${cfg.bride}`;
+      data.venueName = cfg.venueName;
+      data.venueAddress = cfg.venueAddress;
 
-      // Fold the dynamically-added guest-name fields (guestName2,
-      // guestName3, ... or the "5+" guestNamesExtra textarea) into one
-      // clean "guestNames" string, so the Sheet/emails get a single tidy
-      // field regardless of how many were rendered.
       const guestNameKeys = Object.keys(data).filter((k) => k.startsWith("guestName") && k !== "guestCount");
       if (guestNameKeys.length) {
         const names = guestNameKeys
