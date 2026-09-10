@@ -72,16 +72,6 @@ The map on the Location section is built automatically from `venueName` +
 `venueAddress` in `js/config.js`. Once you have the full street address for
 Uddin's Mishti, update `venueAddress` and the map will pin the exact spot.
 
-## Reception / Walima
-
-Currently marked "to be announced." Once details are confirmed, in `js/config.js` set:
-```js
-hasReception: true,
-receptionDateDisplay: "...",
-receptionTimeDisplay: "...",
-receptionVenueName: "...",
-receptionVenueAddress: "...",
-```
 
 ## Running locally
 
@@ -99,7 +89,5 @@ python3 -m http.server 8000
 This is a static site — any static host works. Easiest free options:
 
 - **GitHub Pages**: push this folder to a GitHub repo, enable Pages in repo settings.
-- **Netlify**: drag-and-drop the folder at https://app.netlify.com/drop.
-- **Vercel**: `vercel` CLI or drag-and-drop import.
 
 No build step needed — deploy the folder as-is.
