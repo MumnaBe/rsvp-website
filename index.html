@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Samil &amp; Israt — Our Nikkah</title>
+<meta name="description" content="Join us to celebrate the Nikkah of Samil and Israt." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&display=swap" rel="stylesheet" />
+
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="site-header" id="siteHeader">
+  <div class="nav">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#top" class="nav-monogram" id="navBrand">I&amp;S</a>
+  </div>
+</header>
+
+<!-- Fullscreen menu (hamburger). Deliberately a sibling of <header>, not
+     nested inside it: #siteHeader.scrolled uses backdrop-filter, and a
+     backdrop-filter/filter/transform ancestor creates a new containing
+     block for any position:fixed descendant — which was clipping this
+     overlay down to the header's own tiny box instead of the full
+     viewport once the page was scrolled. -->
+<nav class="menu-overlay" id="navLinks" aria-label="Section navigation">
+  <ul class="menu-list" id="menuList">
+    <li><a href="#top" data-section="top">Home</a></li>
+    <li><a href="#details" data-section="details">Details</a></li>
+    <li><a href="#location" data-section="location">Location</a></li>
+    <li><a href="#rsvp" data-section="rsvp">RSVP</a></li>
+  </ul>
+</nav>
+
+<main id="top">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="invite-card">
+      <div class="hero-frame">
+        <p class="invite-bismillah reveal" id="heroBismillah" lang="ar" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <p class="invite-bismillah-en reveal" id="heroBismillahEn">In the name of Allah, the Most Gracious, the Most Merciful</p>
+
+        <p class="invite-blessing reveal" id="heroBlessing">With the blessings of our families,</p>
+
+        <div class="invite-names reveal">
+          <p class="invite-name" id="heroGroom">Samil</p>
+          <p class="invite-and">and</p>
+          <p class="invite-name" id="heroBride">Israt</p>
+        </div>
+
+        <p class="invite-line reveal" id="heroInviteLine">Joyfully invite you to celebrate their</p>
+        <p class="invite-nikkah reveal">Nikkah</p>
+
+        <div class="invite-date-row reveal">
+          <p class="invite-month" id="heroMonth">October</p>
+          <div class="invite-date-line">
+            <span class="invite-day-label" id="heroDay">Saturday</span>
+            <span class="invite-date-num" id="heroDateNum">17</span>
+            <span class="invite-time" id="heroTime">3:00 PM</span>
+          </div>
+          <p class="invite-year" id="heroYear">2026</p>
+        </div>
+
+        <p class="invite-venue reveal">
+          <svg class="invite-pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-4 0-7 3-7 7 0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+          <span id="heroVenue">Uddin's Mishti, Montreal</span>
+        </p>
+        <svg class="invite-heart reveal" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7.5-4.8-10-9.5C.5 7 2 3.5 5.5 3c2-.3 3.7.7 4.5 2.4C10.8 3.7 12.5 2.7 14.5 3c3.5.5 5 4 3.5 7.5C15.5 15.2 12 20 12 20z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+
+        <div class="countdown reveal" id="countdown" aria-label="Countdown to the nikkah">
+        <div class="countdown-item">
+          <span class="countdown-num" id="cdDays">00</span>
+          <span class="countdown-label">Days</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cdHours">00</span>
+          <span class="countdown-label">Hours</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cdMins">00</span>
+          <span class="countdown-label">Minutes</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-num" id="cdSecs">00</span>
+          <span class="countdown-label">Seconds</span>
+        </div>
+      </div>
+
+      <a href="#rsvp" class="btn btn-primary reveal">RSVP</a>
+
+      <nav class="hero-nav reveal" aria-label="Section links" id="heroNav">
+        <ul>
+          <li><a href="#top" data-section="top" class="is-active">Home</a></li>
+          <li><a href="#details" data-section="details">Details</a></li>
+          <li><a href="#location" data-section="location">Location</a></li>
+          <li><a href="#rsvp" data-section="rsvp">RSVP</a></li>
+        </ul>
+      </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack1"></div>
+  </div>
+
+  <!-- ===== DETAILS ===== -->
+  <section class="section" id="details">
+    <div class="container">
+      <p class="kicker reveal">Join Us</p>
+      <h2 class="section-title reveal">Event Details</h2>
+      <div class="divider reveal" aria-hidden="true"></div>
+
+      <div class="details-grid">
+        <article class="detail-card reveal">
+          <div class="detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><rect x="8" y="12" width="32" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 20h32M16 8v8M32 8v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Nikkah Ceremony</h3>
+          <p class="detail-line" id="detailDate">Saturday, October 17, 2026</p>
+          <p class="detail-line" id="detailTime">3:00 PM</p>
+          <p class="detail-line" id="detailVenue">Uddin's Mishti, Montreal, QC</p>
+          <p class="detail-note" id="detailNote">Full address to be confirmed — check back closer to the date or contact us.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOCATION ===== -->
+  <section class="section section-beige" id="location">
+    <div class="container narrow">
+      <p class="kicker reveal">Getting There</p>
+      <h2 class="section-title reveal">Location</h2>
+      <div class="divider reveal" aria-hidden="true"></div>
+      <p class="reveal" id="locationText">Uddin's Mishti &middot; Montreal, QC</p>
+      <div class="map-frame reveal">
+        <iframe
+          id="mapEmbed"
+          title="Venue location map"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RSVP ===== -->
+  <section class="section section-beige" id="rsvp">
+    <div class="container narrow">
+      <p class="kicker reveal">We Hope You Can Join</p>
+      <h2 class="section-title reveal">RSVP</h2>
+      <div class="divider reveal" aria-hidden="true"></div>
+      <p class="rsvp-note reveal">Kindly respond by <span id="rsvpBy">TBD</span>.</p>
+
+      <form class="rsvp-form reveal" id="rsvpForm">
+        <div class="form-row">
+          <label for="fullName">Full Name*</label>
+          <input type="text" id="fullName" name="fullName" required />
+        </div>
+
+        <div class="form-row">
+          <label for="email">Email*</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-row">
+          <span class="fieldset-label">Will you be attending?*</span>
+          <div class="radio-group">
+            <label class="radio-pill">
+              <input type="radio" name="attending" value="Joyfully Accepts" required />
+              <span>Joyfully Accepts</span>
+            </label>
+            <label class="radio-pill">
+              <input type="radio" name="attending" value="Regretfully Declines" required />
+              <span>Regretfully Declines</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-row" id="guestCountRow">
+          <label for="guestCount">Number of Guests (incl. yourself)</label>
+          <select id="guestCount" name="guestCount">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+
+        <div id="guestNamesContainer"></div>
+
+        <div class="form-row">
+          <label for="notes">Dietary Restrictions / Notes</label>
+          <textarea id="notes" name="notes" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="rsvpSubmit">Send RSVP</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack2"></div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <p class="footer-names" id="footerNames">Israt &amp; Samil</p>
+  <div class="divider" aria-hidden="true"></div>
+  <p class="footer-note">With love and gratitude, thank you for celebrating with us.</p>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
