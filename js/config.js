@@ -25,5 +25,5 @@ const SITE_CONFIG = {
   // RSVP deadline 
   rsvpByDisplay: "September 24, 2026",
 
-  googleScriptUrl: "https://script.google.com/macros/s/AKfycbxsnqdr-zVAV4te0JFMtTMNSyeCLquZSBDm3UXHv3kf1lPF44Gqjk7ooJCXjnkDLvtm/exec"
+  googleScriptUrl: "https://script.google.com/macros/s/AKfycbxWucsnPAL35VHXYRXyfesBA6gl3250NDw3lfaTyOniRC-v3743Fl_AB7UD5IvwjUNU/exec"
 };
