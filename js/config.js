@@ -13,8 +13,7 @@ const SITE_CONFIG = {
   venueName: "Uddin's Mishti",
   venueAddress: "72 Boulevard Saint Jean Baptiste Local 122, Châteauguay, Quebec J6K 4Y7",
 
-  // Home page invitation card wording
-  showBismillah: true, /
+  showBismillah: true, 
   invitationBlessing: "With the blessings of our families,",
   invitationInviteLine: "Joyfully invite you to celebrate their",
 
@@ -23,7 +22,7 @@ const SITE_CONFIG = {
     return `${this.venueName}, ${this.venueAddress}`;
   },
 
-  // RSVP deadline shown on the form
+  // RSVP deadline 
   rsvpByDisplay: "September 24, 2026",
 
   googleScriptUrl: "https://script.google.com/macros/s/AKfycbxsnqdr-zVAV4te0JFMtTMNSyeCLquZSBDm3UXHv3kf1lPF44Gqjk7ooJCXjnkDLvtm/exec"
