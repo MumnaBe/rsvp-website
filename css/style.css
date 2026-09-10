@@ -211,10 +211,10 @@ img { max-width: 100%; display: block; }
 
 @media (max-width: 600px) {
   .invite-card {
-    padding: 46px 22px 34px;
-    border-radius: 160px 160px 4px 4px;
+    padding: 56px 22px 34px;
+    border-radius: 100px 100px 4px 4px;
   }
-  .invite-card::before { border-radius: 148px 148px 2px 2px; }
+  .invite-card::before { border-radius: 88px 88px 2px 2px; }
 }
 
 /* Full names (e.g. "SAMIL MEHEDI") at the 1.7rem floor in .invite-name's
