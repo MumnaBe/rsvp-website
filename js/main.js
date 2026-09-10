@@ -193,8 +193,7 @@
       ` <span aria-hidden="true">&#9670;</span> ` +
       `${cfg.venueName}` +
       ` <span aria-hidden="true">&#9670;</span> `;
-    // Repeat enough times to comfortably fill any screen width, then
-    // duplicate the whole thing once more so the loop point is seamless.
+
     const half = unit.repeat(6);
 
     tracks.forEach((track) => {
@@ -203,8 +202,6 @@
   }
 
   /* ---------- Extra guest name fields ---------- */
-  // When "Number of Guests" is more than 1, ask for each additional guest's
-  // name so the couple knows who's actually coming, not just a headcount.
   function initGuestNames() {
     const select = document.getElementById("guestCount");
     const container = document.getElementById("guestNamesContainer");
@@ -215,8 +212,7 @@
       container.innerHTML = "";
 
       if (value === "5") {
-        // "5+" is open-ended, so a free-text list is more practical than
-        // guessing how many individual fields to render.
+        // "5+" is open-ended, so a free-text list is more practical 
         container.innerHTML = `
           <div class="form-row">
             <label for="guestNamesExtra">Names of Additional Guests</label>
@@ -240,11 +236,10 @@
     }
 
     select.addEventListener("change", render);
-    render(); // in case the select isn't at its default value on load
+    render(); 
   }
 
   /* ---------- Hide guest count when declining ---------- */
-  // Doesn't make sense to ask "how many guests" if they're not coming at all.
   function initAttendingToggle() {
     const radios = document.querySelectorAll('input[name="attending"]');
     const guestRow = document.getElementById("guestCountRow");
@@ -264,7 +259,7 @@
     }
 
     radios.forEach((r) => r.addEventListener("change", render));
-    render(); // in case a radio is pre-checked on load
+    render(); 
   }
 
   /* ---------- RSVP submit ---------- */
@@ -304,11 +299,9 @@
         saved.push({ ...data, submittedAt: new Date().toISOString() });
         localStorage.setItem("rsvps", JSON.stringify(saved));
       } catch (_) {
-        /* localStorage unavailable — ignore */
       }
 
       if (!cfg.googleScriptUrl) {
-        // No backend configured yet — confirm receipt locally.
         status.textContent =
           "RSVP saved on this device. Add your Google Apps Script URL in js/config.js so responses reach you directly.";
         status.classList.add("success");
@@ -320,11 +313,6 @@
       }
 
       try {
-        // Apps Script web apps don't return CORS headers fetch() can read,
-        // so this is sent "no-cors": the request still reaches the script
-        // and the two emails still send, but the response body is opaque —
-        // there's no way to confirm success/failure from here. A network
-        // failure (offline, blocked, etc.) is still caught below.
         await fetch(cfg.googleScriptUrl, {
           method: "POST",
           mode: "no-cors",
