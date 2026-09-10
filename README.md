@@ -19,9 +19,6 @@ Everything text-based (names, date, RSVP deadline) lives in
 
 The backend is **Google Sheets + Google Apps Script**
 
-Full commented source lives in **`google-apps-script/Code.gs`** — copy that
-file's setup steps:
-
 1. Create a new Google Sheet at https://sheets.google.com.
 2. In it: **Extensions → Apps Script**, delete the placeholder code, and paste
    in the entire contents of `google-apps-script/Code.gs`.
