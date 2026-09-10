@@ -1,8 +1,6 @@
 /* ============================================================
-   ISRAT & SAMIL — Nikkah site
-   Palette matched to the couple's invitation card:
-   vintage ivory paper / near-black ink / antique gold / sage green
-   ============================================================ */
+STYLES SHEET
+============================================================ */
 
 :root {
   --gold: #bc9a63;
@@ -219,6 +217,18 @@ img { max-width: 100%; display: block; }
   .invite-card::before { border-radius: 148px 148px 2px 2px; }
 }
 
+/* Full names (e.g. "SAMIL MEHEDI") at the 1.7rem floor in .invite-name's
+   clamp() crowd right up against the arch border on narrow phones — the
+   floor doesn't shrink with viewport width, only the uncapped middle of
+   the clamp does. Give small screens their own, further-shrinking clamp
+   so long names keep clearing the card's curved edge. */
+@media (max-width: 420px) {
+  .invite-name {
+    font-size: clamp(1.1rem, 6.2vw, 1.6rem);
+    letter-spacing: 0.04em;
+  }
+}
+
 /* ---------- Invitation wording ---------- */
 .invite-bismillah {
   font-family: "Cormorant Garamond", serif;
@@ -323,7 +333,7 @@ img { max-width: 100%; display: block; }
 }
 .invite-venue {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap: 8px;
   text-align: center;
@@ -337,6 +347,7 @@ img { max-width: 100%; display: block; }
 .invite-pin {
   width: 16px;
   height: 16px;
+  margin-top: 3px; /* optically align with the cap-height of the first text line, since align-items is now flex-start (needed so the pin sits by line 1, not centered against the whole wrapped address) */
   flex-shrink: 0;
   color: var(--leaf-green);
 }
