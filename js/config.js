@@ -10,7 +10,7 @@ const SITE_CONFIG = {
   nikkahDateDisplay: "Saturday, October 17, 2026",
   nikkahTimeDisplay: "3:00 PM",
 
-  venueName: "Uddin's Mishti",
+  venueName: "Uddin's Misti",
   venueAddress: "72 Boulevard Saint Jean Baptiste Local 122, Châteauguay, Quebec J6K 4Y7",
 
   showBismillah: true, 
