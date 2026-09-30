@@ -29,8 +29,6 @@
     const dd = String(nikkahDate.getDate()).padStart(2, "0");
     const mm = String(nikkahDate.getMonth() + 1).padStart(2, "0");
     const yyyy = nikkahDate.getFullYear();
-    const weekday = nikkahDate.toLocaleDateString("en-US", { weekday: "long" });
-    const monthName = nikkahDate.toLocaleDateString("en-US", { month: "long" });
     const dateStamp = `${dd} \u00b7 ${mm} \u00b7 ${yyyy}`;
 
     document.getElementById("heroDateStamp").textContent = dateStamp;
@@ -46,46 +44,73 @@
     document.getElementById("duaTranslation").textContent = cfg.duaTranslation || "";
     document.getElementById("duaSource").textContent = cfg.duaSource || "";
 
-    // Date / time / venue row
-    document.getElementById("factWeekday").textContent = weekday;
-    document.getElementById("factDayNum").textContent = nikkahDate.getDate();
-    document.getElementById("factMonthYear").textContent = `${monthName} ${yyyy}`;
-    document.getElementById("factTime").textContent = cfg.nikkahTimeDisplay;
-    document.getElementById("factVenue").textContent = cfg.venueName;
-    document.getElementById("factAddress").textContent = cfg.venueAddress;
-
-    // "Get Directions" opens the venue in Google Maps directions mode
-    document.getElementById("directionsBtn").href =
-      `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(cfg.mapQuery)}`;
-
-    // Verse panel
-    const versePhoto = document.getElementById("versePhoto");
-    if (cfg.versePanelImage) {
-      versePhoto.style.backgroundImage = `url("${cfg.versePanelImage}")`;
-    }
-
+    // Date heading above the schedule: "Saturday, October 17, 2026"
+    document.getElementById("itinDate").textContent = nikkahDate.toLocaleDateString(
+      "en-US",
+      { weekday: "long", month: "long", day: "numeric", year: "numeric" }
+    );
   }
 
   /* ---------- Itinerary ---------- */
+  // Line icons for the circles on the timeline, keyed by cfg.itinerary[].icon
+  const ITINERARY_ICONS = {
+    arrival: '<path d="M7 21V4.5A1.5 1.5 0 0 1 8.5 3h7A1.5 1.5 0 0 1 17 4.5V21M4 21h16M14 12.5h.01"/>',
+    rings: '<circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M10.5 5.5 12 3.5l1.5 2"/>',
+    speech: '<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v9a1.5 1.5 0 0 1-1.5 1.5H10l-4 4v-4h-.5A1.5 1.5 0 0 1 4 14.5z"/><path d="M8 9h8M8 12h5"/>',
+    prayer: '<path d="M15.5 3.5a8.5 8.5 0 1 0 5 13.5 7 7 0 0 1-5-13.5z"/>',
+    dinner: '<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-1.7 0-3 2-3 5v4h3v9"/>',
+    cake: '<path d="M4 21h16M5 21v-7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v7M5 17c1.5 1 3 1 4.5 0s3-1 4.5 0 3 1 5 0M12 13V9M12 6.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5z"/>',
+  };
+
   // Built from cfg.itinerary so the order of the day lives in one place.
+  // Each event is a card on a vertical line; the first card also carries
+  // the venue and the Get Directions button.
   function renderItinerary() {
     const list = document.getElementById("itineraryList");
     if (!list || !Array.isArray(cfg.itinerary)) return;
 
     list.innerHTML = "";
-    cfg.itinerary.forEach((item) => {
+    cfg.itinerary.forEach((item, i) => {
       const li = document.createElement("li");
       li.className = "timeline-item reveal";
+
+      const icon = document.createElement("span");
+      icon.className = "timeline-icon";
+      icon.setAttribute("aria-hidden", "true");
+      icon.innerHTML =
+        `<svg viewBox="0 0 24 24">${ITINERARY_ICONS[item.icon] || '<circle cx="12" cy="12" r="3"/>'}</svg>`;
+
+      const card = document.createElement("div");
+      card.className = "timeline-card";
 
       const time = document.createElement("span");
       time.className = "timeline-time";
       time.textContent = item.time;
 
-      const title = document.createElement("span");
+      const title = document.createElement("h3");
       title.className = "timeline-title";
       title.textContent = item.title;
 
-      li.append(time, title);
+      card.append(time, title);
+
+      if (i === 0) {
+        const place = document.createElement("p");
+        place.className = "timeline-place";
+        place.textContent = `${cfg.venueName} \u2014 ${cfg.venueAddress}`;
+
+        // Opens the venue in Google Maps directions mode
+        const btn = document.createElement("a");
+        btn.className = "timeline-btn";
+        btn.href =
+          `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(cfg.mapQuery)}`;
+        btn.target = "_blank";
+        btn.rel = "noopener";
+        btn.innerHTML = 'Get Directions <span aria-hidden="true">&rsaquo;</span>';
+
+        card.append(place, btn);
+      }
+
+      li.append(icon, card);
       list.appendChild(li);
     });
   }
@@ -171,7 +196,7 @@
     const navLinks = document.querySelectorAll(
       '.nav-inline a[data-section], .menu-list a[data-section]'
     );
-    const sectionIds = ["top", "details", "itinerary", "rsvp"];
+    const sectionIds = ["top", "details", "rsvp"];
     const sections = sectionIds
       .map((id) => (id === "top" ? document.querySelector(".hero") : document.getElementById(id)))
       .filter(Boolean);

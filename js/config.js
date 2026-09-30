@@ -13,24 +13,25 @@ const SITE_CONFIG = {
   // ISO date used by the countdown — keep the T15:00:00 (3pm) format
   nikkahDateISO: "2026-10-17T15:00:00",
   nikkahDateDisplay: "Saturday, October 17, 2026",
-  nikkahTimeDisplay: "3:00 PM",
 
   // The live countdown clock. Off by default — the invitation reads more
   // like a printed card without it. Flip to true to bring it back.
   showCountdown: false,
 
-  // Order of the day, shown in the Itinerary section. Add/remove/reorder
-  // freely — the section renders straight from this list.
+  // Order of the day, shown in the Nikkah Itinerary section. Add/remove/reorder
+  // freely — the section renders straight from this list. `icon` picks the
+  // circle icon: arrival, rings, speech, prayer, dinner or cake. The first
+  // item also shows the venue and the Get Directions button.
   itinerary: [
-    { time: "3:00 PM", title: "Guest Arrivals & Appetizers" },
-    { time: "4:00 PM", title: "Nikkah" },
-    { time: "5:00 PM", title: "Speeches" },
-    { time: "6:00 PM", title: "Prayers" },
-    { time: "7:00 PM", title: "Dinner" },
-    { time: "8:00 PM", title: "Cake Cutting" },
+    { time: "3:00 PM", title: "Guest Arrivals & Appetizers", icon: "arrival" },
+    { time: "4:00 PM", title: "Nikkah", icon: "rings" },
+    { time: "5:00 PM", title: "Speeches", icon: "speech" },
+    { time: "6:00 PM", title: "Prayers", icon: "prayer" },
+    { time: "7:00 PM", title: "Dinner", icon: "dinner" },
+    { time: "8:00 PM", title: "Cake Cutting", icon: "cake" },
   ],
 
-  venueName: "Uddin's Mishti",
+  venueName: "Uddin's Misti",
   venueAddress: "72 Boulevard Saint Jean Baptiste Local 122, Châteauguay, Quebec J6K 4Y7",
 
   // Home page invitation card wording
@@ -39,14 +40,9 @@ const SITE_CONFIG = {
   invitationInviteLine: "Joyfully invite you to celebrate their",
 
   // ---- Du'a above the details section ----
-  duaArabic: "وَمِن كُلِّ شَيْءٍ خَلَقْنَا زَوْجَيْنِ لَعَلَّكُمْ تَذَكَّرُونَ",
-  duaTranslation:
-    "\u201cAnd of everything We created pairs so that you may reflect.\u201d",
-  duaSource: "Qur'an 51:49",
-
-  // ---- Itinerary panel (the arch + photo band) ----
-  // The photo shown beside the itinerary.
-  versePanelImage: "images/verse-photo.jpg",
+  duaArabic: "وَخَلَقْنَاكُمْ أَزْوَاجًا",
+  duaTranslation: "\u201cAnd We created you in pairs.\u201d",
+  duaSource: "Qur'an 78:8",
 
   // Google Maps embed search query — auto-builds from venue name + address above
   get mapQuery() {

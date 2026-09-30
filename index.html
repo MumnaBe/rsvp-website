@@ -11,7 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&family=Amiri:ital,wght@0,400;0,700&display=swap" rel="stylesheet" />
 
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
-<link rel="stylesheet" href="css/style.css?v=44" />
+<link rel="stylesheet" href="css/style.css?v=49" />
 </head>
 <body>
 
@@ -28,8 +28,7 @@
     <nav class="nav-inline" aria-label="Section navigation">
       <ul>
         <li><a href="#top" data-section="top" class="is-active">Home</a></li>
-        <li><a href="#details" data-section="details">Details</a></li>
-        <li><a href="#itinerary" data-section="itinerary">Itinerary</a></li>
+        <li><a href="#details" data-section="details">Itinerary</a></li>
         <li><a href="#rsvp" data-section="rsvp">RSVP</a></li>
       </ul>
     </nav>
@@ -45,8 +44,7 @@
 <nav class="menu-overlay" id="navLinks" aria-label="Section navigation">
   <ul class="menu-list" id="menuList">
     <li><a href="#top" data-section="top">Home</a></li>
-    <li><a href="#details" data-section="details">Details</a></li>
-    <li><a href="#itinerary" data-section="itinerary">Itinerary</a></li>
+    <li><a href="#details" data-section="details">Itinerary</a></li>
     <li><a href="#rsvp" data-section="rsvp">RSVP</a></li>
   </ul>
 </nav>
@@ -104,7 +102,7 @@
     <div class="marquee-track" id="marqueeTrack1"></div>
   </div>
 
-  <!-- ===== DETAILS ===== -->
+  <!-- ===== NIKKAH ITINERARY ===== -->
   <section class="section" id="details">
     <div class="container">
 
@@ -117,54 +115,16 @@
 
       <div class="ornament reveal" aria-hidden="true"></div>
 
-      <p class="kicker reveal">Join Us</p>
-      <h2 class="section-title reveal">The Nikkah</h2>
+      <h2 class="section-title reveal">Nikkah Itinerary</h2>
+      <p class="itin-sub reveal">The Schedule</p>
       <div class="ornament reveal" aria-hidden="true"></div>
 
-      <div class="facts reveal">
-        <div class="fact">
-          <div class="fact-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48"><rect x="8" y="12" width="32" height="28" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 20h32M16 8v8M32 8v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <p class="fact-sub" id="factWeekday">Saturday</p>
-          <p class="fact-lead" id="factDayNum">17</p>
-          <p class="fact-sub" id="factMonthYear">October 2026</p>
-        </div>
-
-        <div class="fact">
-          <div class="fact-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="16" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M24 14v10l7 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <p class="fact-lead fact-lead-sm" id="factTime">3:00 PM</p>
-        </div>
-
-        <div class="fact">
-          <div class="fact-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48"><path d="M24 6c-7 0-12 5-12 12 0 9 12 24 12 24s12-15 12-24c0-7-5-12-12-12z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="24" cy="18" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-          </div>
-          <p class="fact-name" id="factVenue">Uddin's Mishti</p>
-          <p class="fact-address" id="factAddress"></p>
-        </div>
+      <div class="itin-date reveal">
+        <p class="itin-date-day" id="itinDate">Saturday, October 17, 2026</p>
+        <p class="itin-date-label">The Nikkah</p>
       </div>
 
-      <div class="facts-cta reveal">
-        <a class="btn btn-primary" id="directionsBtn" href="#" target="_blank" rel="noopener">
-          Get Directions <span class="btn-arrow" aria-hidden="true">&rsaquo;</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== VERSE PANEL ===== -->
-  <section class="verse-band" id="itinerary" aria-label="Itinerary">
-    <div class="verse-photo" id="versePhoto" role="img" aria-label="Decorative"></div>
-    <div class="verse-quote">
-      <div class="verse-arch">
-        <p class="kicker">Order of the Day</p>
-        <h2 class="section-title">Itinerary</h2>
-        <div class="ornament" aria-hidden="true"></div>
-        <ol class="timeline" id="itineraryList"></ol>
-      </div>
+      <ol class="timeline" id="itineraryList"></ol>
     </div>
   </section>
 
@@ -175,7 +135,6 @@
       <h2 class="section-title reveal">RSVP</h2>
       <div class="ornament reveal" aria-hidden="true"></div>
       <p class="rsvp-note reveal">
-        We would be honoured to celebrate with you.<br />
         Kindly respond as soon as you can.
       </p>
 
@@ -236,7 +195,7 @@
   <div class="ornament footer-ornament" aria-hidden="true"></div>
 </footer>
 
-<script src="js/config.js?v=10"></script>
-<script src="js/main.js?v=8"></script>
+<script src="js/config.js?v=14"></script>
+<script src="js/main.js?v=10"></script>
 </body>
 </html>

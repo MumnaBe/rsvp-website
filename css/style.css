@@ -66,8 +66,7 @@ main { position: relative; }
 
 .hero::before, .hero::after,
 .section::before, .section::after,
-.site-footer::before, .site-footer::after,
-.verse-quote::after {
+.site-footer::before, .site-footer::after {
   content: "";
   position: absolute;
   pointer-events: none;
@@ -104,15 +103,6 @@ main { position: relative; }
 }
 #details::before { left: 24px; }
 #details::after { right: 24px; transform: scaleX(-1); }
-
-/* Verse band — a sprig tucked inside the right-hand quote panel */
-.verse-quote::after {
-  background-image: url("../images/extracted-florals/floral-quote-right.png");
-  width: 85px;
-  height: 212px;
-  bottom: 18px;
-  right: 14px;
-}
 
 /* RSVP */
 #rsvp::before {
@@ -181,7 +171,6 @@ main { position: relative; }
   #rsvp::after { width: 95px; height: 102px; }
   .site-footer::before { width: 76px; height: 76px; }
   .site-footer::after { width: 100px; height: 103px; }
-  .verse-quote::after { width: 60px; height: 150px; }
 }
 
 /* ---------- Reveal-on-scroll ---------- */
@@ -708,75 +697,16 @@ main { position: relative; }
   margin: 14px 0 0;
 }
 
-/* ---------- Facts row (date / time / venue) ---------- */
-.facts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: start;
-  max-width: 900px;
-  margin: 0 auto;
-}
-/* Hairline separators between the three columns, like the mock-up */
-.facts .fact + .fact {
-  border-left: 1px solid var(--border);
-}
-.fact {
-  text-align: center;
-  padding: 10px 24px;
-}
-.fact-icon {
-  width: 30px;
-  height: 30px;
-  margin: 0 auto 16px;
-  color: var(--leaf-green);
-}
-.fact-icon svg { width: 100%; height: 100%; }
-.fact-sub {
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 0.72rem;
-  color: var(--ink-soft);
-  margin: 0;
-}
-.fact-lead {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 2.6rem;
-  line-height: 1.15;
-  color: var(--ink);
-  margin: 6px 0;
-}
-.fact-lead-sm { font-size: 1.9rem; margin-top: 14px; }
-.fact-name {
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--ink);
-  margin: 0 0 8px;
-}
-.fact-address {
-  font-size: 0.86rem;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  margin: 0;
-}
-.facts-cta { text-align: center; margin-top: 46px; }
-
-@media (max-width: 760px) {
-  .facts { grid-template-columns: 1fr; gap: 34px; }
-  .facts .fact + .fact {
-    border-left: none;
-    border-top: 1px solid var(--border);
-    padding-top: 30px;
-  }
-}
-
 /* ---------- The Nikkah section, matched to the mock-up ----------
    Marble paper with jasmine branches in three corners (images/details-bg.jpg),
    and the wording set in Cormorant throughout. */
+/* Artwork across the top at full width, fading into matching paper so the
+   long schedule below sits on the same cream */
 #details {
-  background: #faf4e8 url("../images/details-bg.jpg?v=1") center / cover no-repeat;
+  background:
+    linear-gradient(rgba(250, 244, 232, 0) 55%, #faf4e8) center top / 100% 56.6vw no-repeat,
+    url("../images/details-bg.jpg?v=1") center top / 100% auto no-repeat,
+    #faf4e8;
 }
 #details::before, #details::after { display: none; }
 #details .dua-arabic { color: var(--leaf-green-deep); line-height: 1.6; margin: 0 0 8px; }
@@ -801,44 +731,6 @@ main { position: relative; }
   letter-spacing: 0.01em;
   line-height: 1.15;
 }
-#details .facts { max-width: 560px; align-items: center; }
-#details .facts .fact + .fact { border-left-color: rgba(42, 38, 34, 0.35); }
-#details .fact { padding: 0 12px; }
-#details .fact-icon { color: var(--leaf-green-deep); margin-bottom: 8px; }
-#details .fact-icon svg * { stroke-width: 3; }
-#details .facts { grid-template-columns: 1.3fr 1fr 1.3fr; }
-#details .fact-sub {
-  font-family: var(--font-script);
-  font-weight: 600;
-  font-variant-numeric: lining-nums;
-  letter-spacing: 0.02em;
-  color: var(--ink);
-}
-#details .fact-lead {
-  font-family: var(--font-script);
-  font-weight: 700;
-  line-height: 1;
-  font-variant-numeric: lining-nums;
-  margin: 2px 0;
-}
-#details .fact-lead-sm { font-weight: 600; margin: 0; }
-#details .fact-name {
-  font-family: var(--font-script);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin: 0 0 2px;
-}
-#details .fact-address {
-  font-family: var(--font-script);
-  font-weight: 500;
-  max-width: 13.2em;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  color: var(--ink);
-  line-height: 1.35;
-  font-variant-numeric: lining-nums;
-}
-#details .facts-cta { margin-top: 18px; }
 #details .btn-primary {
   background: var(--leaf-green-deep);
   border-color: var(--leaf-green-deep);
@@ -850,20 +742,12 @@ main { position: relative; }
 @media (max-width: 760px) {
   /* The stacked layout is tall, so show the artwork at full width along
      the top rather than cropping its corner florals away */
-  #details {
-    background:
-      linear-gradient(rgba(250, 244, 232, 0) 55%, #faf4e8) center top / 100% 56.6vw no-repeat,
-      url("../images/details-bg.jpg?v=1") center top / 100% auto no-repeat,
-      #faf4e8;
-  }
-  #details .facts { grid-template-columns: 1fr; }
-  #details .facts .fact + .fact { padding-top: 26px; }
 }
 
 /* Desktop: everything scales off the band's width, like the hero, so the
    section keeps the mock-up's proportions against the artwork. */
 @media (min-width: 701px) {
-  #details { --u: 1vw; --t: min(0.75vw, 11.5px); padding: calc(var(--u) * 3) 0 calc(var(--u) * 3.6); min-height: calc(var(--u) * 56.5); }
+  #details { --u: 1vw; --t: min(0.75vw, 11.5px); padding: calc(var(--u) * 3) 0 calc(var(--u) * 5); }
   #details .container { max-width: none; }
   #details .dua { max-width: none; }
   #details .dua-arabic { font-size: calc(var(--t) * 3.3); }
@@ -873,203 +757,185 @@ main { position: relative; }
   #details .ornament::after { width: calc(var(--t) * 1.6); height: calc(var(--t) * 1.6); }
   #details .kicker { font-size: calc(var(--t) * 1.9); }
   #details .section-title { font-size: calc(var(--t) * 4.8); }
-  #details .facts { max-width: calc(var(--t) * 76); }
-  #details .facts .fact + .fact { border-left-width: 1px; }
-  #details .fact { padding: 0 calc(var(--t) * 1.2); }
-  #details .fact-icon { width: calc(var(--t) * 4.6); height: calc(var(--t) * 4.6); margin-bottom: 0; }
-  #details .fact-sub { font-size: max(0.7rem, calc(var(--t) * 1.75)); }
-  #details .fact-lead { font-size: calc(var(--t) * 6.6); }
-  #details .fact-lead-sm { font-size: calc(var(--t) * 3.3); }
-  #details .fact-name { font-size: max(0.7rem, calc(var(--t) * 1.65)); }
-  #details .fact-address { font-size: max(0.72rem, calc(var(--t) * 1.65)); }
-  #details .facts-cta { margin-top: calc(var(--t) * 0.8); }
   #details .btn { font-size: max(0.62rem, calc(var(--t) * 1.3)); padding: calc(var(--t) * 1.35) calc(var(--t) * 3); }
 }
 
-/* ---------- Verse band (photo + quote) ---------- */
-.verse-band {
+/* ---------- Nikkah Itinerary: schedule heading + timeline cards ----------
+   A date heading between hairlines, then one card per event hung on a
+   vertical line, each with a circled line icon, a time badge and the event
+   name. The first card also carries the venue and Get Directions. */
+#details .container { text-align: center; }
+.itin-sub {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 10px 0 0;
+}
+.itin-date {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: relative;
-  /* Above the page's botanical side strips: this band runs edge to edge,
-     so leaves drifting across the photo would just look like a mistake. */
-  z-index: 3;
-  background: var(--beige-deep);
-}
-.verse-photo {
-  position: relative;
-  min-height: 460px;
-  background-color: var(--beige-deep);
-  background-size: cover;
-  background-position: center;
-}
-/* No photo set in config yet — fall back to a botanical still life so the
-   band still reads as designed rather than as an empty grey box. */
-.verse-photo:not([style*="background-image"]) {
-  background-image: url("../images/floral-bouquet.png");
-  background-size: 62% auto;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-/* Thin inset rule, so the fallback panel looks framed rather than bare */
-.verse-photo:not([style*="background-image"])::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border: 1px solid var(--border);
-  pointer-events: none;
-}
-.verse-quote {
-  display: flex;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: center;
-  padding: 70px 40px;
-  background-color: var(--beige);
-  position: relative;
-  overflow: hidden;
+  column-gap: 22px;
+  max-width: 500px;
+  margin: 28px auto 24px;
 }
-/* Arch outline echoing the invitation card at the top of the page */
-.verse-arch {
-  position: relative;
-  max-width: 420px;
-  text-align: center;
-  padding: 54px 34px 40px;
-  border: 1px solid var(--border);
-  border-radius: 200px 200px 4px 4px;
+.itin-date::before,
+.itin-date::after {
+  content: "";
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.55;
+  grid-row: 1;
 }
-/* ---------- Verse band, matched to the mock-up ----------
-   Left: the cream arch with jasmine (images/verse-quote-bg.jpg) holding the
-   verse. Right: the lattice-window photo from config.versePanelImage. */
-.verse-quote {
-  background: #f1ebdf url("../images/verse-quote-bg.jpg?v=1") center / cover no-repeat;
-  padding: 60px 28px;
-}
-.verse-quote::after { display: none; }
-.verse-arch {
-  border: none;
-  border-radius: 0;
-  padding: 0;
-  max-width: none;
-}
-/* The order of the day, set inside the arch */
-.verse-arch .kicker { color: var(--ink); margin: 0; }
-.verse-arch .section-title {
+.itin-date::before { grid-column: 1; }
+.itin-date::after { grid-column: 3; }
+.itin-date-day {
+  grid-column: 2;
+  grid-row: 1;
   font-family: var(--font-script);
-  font-weight: 600;
-  line-height: 1.1;
-}
-.verse-arch .timeline { max-width: none; margin: 14px auto 0; display: inline-grid; grid-template-columns: auto auto; column-gap: 1.1em; row-gap: 4px; text-align: left; }
-.verse-arch .timeline::before { display: none; }
-.verse-arch .timeline-item { display: contents; }
-.verse-arch .timeline-item::before { display: none; }
-.verse-arch .timeline-time {
-  font-family: var(--font-script);
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
+  font-size: 1.55rem;
   font-variant-numeric: lining-nums;
-  color: var(--leaf-green-deep);
-  text-align: right;
-}
-.verse-arch .timeline-title {
-  font-family: var(--font-script);
-  font-style: italic;
-  font-size: 1.1rem;
-  line-height: 1.35;
   color: var(--ink);
+  margin: 0;
+  line-height: 1.2;
 }
-.verse-arch .ornament { max-width: 90px; margin: 12px auto 0; }
-.verse-arch .ornament::before { background: var(--gold); opacity: 0.8; }
-.verse-arch .ornament::after,
-.footer-ornament::after {
-  width: 14px;
-  height: 14px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg fill='%23b08d55'%3E%3Ccircle cx='10' cy='4.6' r='3.1'/%3E%3Ccircle cx='10' cy='15.4' r='3.1'/%3E%3Ccircle cx='4.6' cy='10' r='3.1'/%3E%3Ccircle cx='15.4' cy='10' r='3.1'/%3E%3Crect x='6.6' y='6.6' width='6.8' height='6.8' transform='rotate(45 10 10)'/%3E%3C/g%3E%3Ccircle cx='10' cy='10' r='1.6' fill='%23f3ead8'/%3E%3C/svg%3E") center / contain no-repeat;
-  transform: translate(-50%, -50%);
-}
-@media (min-width: 701px) {
-  /* Same units as the sections above: --u follows the band's width,
-     --t sizes the text a touch smaller and caps it on wide screens. */
-  .verse-band { --u: 1vw; --t: min(0.75vw, 11.5px); aspect-ratio: 824 / 305; }
-  .verse-photo { min-height: 0; }
-  .verse-quote { padding: 0; order: -1; } /* quote left, photo right */
-  /* The arch in the artwork is centred a little right of the panel's middle */
-  .verse-arch { margin-left: calc(var(--u) * 6); }
-  .verse-arch .kicker { font-size: calc(var(--t) * 1.9); }
-  .verse-arch .section-title { font-size: calc(var(--t) * 4.6); }
-  .verse-arch .ornament { max-width: calc(var(--t) * 11); margin-top: calc(var(--t) * 1.2); }
-  .verse-arch .timeline { margin-top: calc(var(--t) * 2); row-gap: calc(var(--t) * 0.5); }
-  .verse-arch .timeline-time { font-size: max(0.7rem, calc(var(--t) * 1.8)); }
-  .verse-arch .timeline-title { font-size: max(0.8rem, calc(var(--t) * 2.3)); }
-  .verse-arch .ornament::after { width: calc(var(--t) * 1.8); height: calc(var(--t) * 1.8); }
-}
-@media (max-width: 700px) {
-  .verse-band { grid-template-columns: 1fr; }
-  .verse-photo { aspect-ratio: 412 / 305; min-height: 0; }
+.itin-date-label {
+  grid-column: 1 / -1;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin: 6px 0 0;
 }
 
-/* ---------- Itinerary (order-of-the-day timeline) ---------- */
 .timeline {
   list-style: none;
+  position: relative;
+  max-width: 500px;
   margin: 0 auto;
   padding: 0;
-  max-width: 520px;
-  position: relative;
+  text-align: left;
 }
-/* The vertical thread the markers sit on. Inset to line up with the
-   centre of the .timeline-item markers below. */
+/* The thread joining the circles */
 .timeline::before {
   content: "";
   position: absolute;
-  top: 10px;
-  bottom: 10px;
-  left: 7px;
+  top: 18px;
+  bottom: 18px;
+  left: 17px;
   width: 1px;
-  background: var(--border);
+  background: var(--gold);
+  opacity: 0.45;
 }
 .timeline-item {
   position: relative;
   display: grid;
-  grid-template-columns: 96px 1fr;
-  align-items: baseline;
-  gap: 4px 18px;
-  padding: 0 0 30px 36px;
+  grid-template-columns: 36px 1fr;
+  column-gap: 14px;
+  align-items: start;
+  margin-bottom: 10px;
 }
-.timeline-item:last-child { padding-bottom: 0; }
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  left: 3px;
-  top: 0.55em;
-  width: 9px;
-  height: 9px;
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-icon {
+  position: relative;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  margin-top: 6px;
   border-radius: 50%;
-  background: var(--white);
-  border: 1px solid var(--gold);
+  display: grid;
+  place-items: center;
+  background: #faf4e8;
+  border: 1.25px solid var(--leaf-green-deep);
+  box-shadow: 0 0 0 4px #faf4e8;
+  color: var(--leaf-green-deep);
+}
+.timeline-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.timeline-card {
+  background: rgba(109, 124, 88, 0.08);
+  border: 1px solid rgba(77, 90, 61, 0.16);
+  border-radius: 3px;
+  padding: 11px 16px 12px;
 }
 .timeline-time {
+  display: inline-block;
   font-family: var(--font-body);
   font-weight: 500;
-  font-size: 0.82rem;
+  font-size: 0.64rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--leaf-green-deep);
-  white-space: nowrap;
+  color: var(--gold-dark);
+  background: rgba(188, 154, 99, 0.16);
+  padding: 3px 8px;
+  border-radius: 2px;
 }
 .timeline-title {
-  font-family: var(--font-display);
-  font-size: 1.12rem;
+  font-family: var(--font-script);
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.2;
   color: var(--ink);
-  line-height: 1.4;
+  margin: 5px 0 0;
 }
-
+.timeline-place {
+  font-family: var(--font-script);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  font-variant-numeric: lining-nums;
+  color: var(--ink-soft);
+  margin: 4px 0 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(77, 90, 61, 0.14);
+}
+.timeline-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.64rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #f3ead8;
+  background: var(--leaf-green-deep);
+  padding: 8px 14px;
+  border-radius: 2px;
+  transition: background 0.25s ease;
+}
+.timeline-btn:hover { background: var(--leaf-green); }
+/* Small capitals in this section use the navigation's lettering: bold
+   Cormorant Garamond, uppercase, widely spaced */
+.itin-sub,
+.itin-date-label,
+.timeline-time,
+.timeline-btn {
+  font-family: var(--font-script);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-variant-numeric: lining-nums;
+}
+.itin-sub { font-size: 0.85rem; }
+.itin-date-label { font-size: 0.82rem; }
+.timeline-time { font-size: 0.74rem; }
+.timeline-btn { font-size: 0.74rem; }
 @media (max-width: 480px) {
-  .timeline-item {
-    grid-template-columns: 1fr;
-    padding-left: 30px;
-    padding-bottom: 26px;
-  }
-  .timeline-title { font-size: 1.05rem; }
+  .itin-date { column-gap: 12px; }
+  .itin-date-day { font-size: 1.3rem; }
+  .timeline-title { font-size: 1.2rem; }
 }
 
 /* ---------- Marquee (dynamic scrolling ticker) ---------- */
@@ -1289,6 +1155,12 @@ input:focus, select:focus, textarea:focus {
   margin: 10px 0 0;
 }
 .footer-ornament { max-width: 90px; margin: 16px auto 0; }
+.footer-ornament::after {
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg fill='%23b08d55'%3E%3Ccircle cx='10' cy='4.6' r='3.1'/%3E%3Ccircle cx='10' cy='15.4' r='3.1'/%3E%3Ccircle cx='4.6' cy='10' r='3.1'/%3E%3Ccircle cx='15.4' cy='10' r='3.1'/%3E%3Crect x='6.6' y='6.6' width='6.8' height='6.8' transform='rotate(45 10 10)'/%3E%3C/g%3E%3Ccircle cx='10' cy='10' r='1.6' fill='%23f3ead8'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: translate(-50%, -50%);
+}
 .footer-ornament::before { background: var(--gold); opacity: 0.9; }
 @media (min-width: 701px) {
   .site-footer { --u: 1vw; --t: min(0.75vw, 11.5px); min-height: calc(var(--u) * 23.8); padding: calc(var(--u) * 2.6) 24px calc(var(--u) * 2.6); }
