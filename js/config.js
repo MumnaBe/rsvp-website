@@ -63,6 +63,6 @@ const SITE_CONFIG = {
   //   - to you: a notification, at the OWNER_EMAIL set in Code.gs
   //   - to the guest: a confirmation of what they submitted
   // ...and every RSVP is also logged as a row in that Google Sheet.
-  googleScriptUrl: "https://script.google.com/macros/s/AKfycbwnXSgwzXSppOu2vGHEuB_MgeATGicrWaZhDKugF_xYxoUPi3Qg16s5u2y1lXQYwFuY/exec"
+  googleScriptUrl: "https://script.google.com/macros/s/AKfycbw2pRB_kBllHwljyvlMeHv9qFKjUihKiirUJrzqschfeY5MaOvtYbBZ5v0HCWHswIEL/exec"
 
 };

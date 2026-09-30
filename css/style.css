@@ -416,13 +416,12 @@ main { position: relative; }
   margin: 0 0 6px;
 }
 .invite-bismillah-en {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.7rem;
-  font-weight: 400;
+  font-family: var(--font-script);
+  font-style: italic;
+  font-size: 1.05rem;
   color: var(--ink);
   margin: 0 auto 22px;
-  line-height: 1.7;
+  line-height: 1.4;
   max-width: 340px;
 }
 .invite-blessing {
@@ -450,6 +449,7 @@ main { position: relative; }
 /* "Son of … / Daughter of …" under each name */
 .invite-parents {
   font-family: var(--font-script);
+  font-style: italic;
   font-size: 1.05rem;
   letter-spacing: 0.01em;
   color: var(--ink-soft);
@@ -507,11 +507,10 @@ main { position: relative; }
   .hero { --u: 1vw; --t: min(0.75vw, 11.5px); }
   .hero .invite-card { width: calc(var(--u) * 44); margin-right: calc(var(--u) * 14); padding: 0; }
   .hero .invite-bismillah { font-size: calc(var(--t) * 2.6); line-height: 1.5; margin: 0 0 calc(var(--t) * 0.4); }
-  .hero .invite-bismillah-en,
   .hero .invite-blessing,
   .hero .invite-line { font-size: max(0.6rem, calc(var(--t) * 1.27)); letter-spacing: 0.11em; }
   .hero .invite-line { letter-spacing: 0.16em; }
-  .hero .invite-bismillah-en { max-width: calc(var(--t) * 36); line-height: 1.55; margin-bottom: calc(var(--t) * 2); }
+  .hero .invite-bismillah-en { font-size: max(0.85rem, calc(var(--t) * 1.95)); max-width: calc(var(--t) * 26); line-height: 1.4; margin-bottom: calc(var(--t) * 2); }
   .hero .invite-blessing { margin-bottom: calc(var(--t) * 0.9); }
   .hero .invite-names { margin-bottom: calc(var(--t) * 2.2); }
   .hero .invite-names .invite-name { font-size: calc(var(--t) * 4.3); font-weight: 700; letter-spacing: 0.01em; line-height: 1; }
@@ -1145,6 +1144,16 @@ input:focus, select:focus, textarea:focus {
   margin: 10px 0 0;
 }
 .footer-ornament { max-width: 90px; margin: 16px auto 0; }
+/* A quiet signature at the very bottom */
+.footer-credit {
+  font-family: var(--font-script);
+  font-style: italic;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: #f3ead8;
+  opacity: 0.45;
+  margin: 18px 0 0;
+}
 .footer-ornament::after {
   width: 14px;
   height: 14px;
