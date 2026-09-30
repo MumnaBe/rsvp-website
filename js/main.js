@@ -337,6 +337,16 @@
     const status = document.getElementById("formStatus");
     const submitBtn = document.getElementById("rsvpSubmit");
 
+    // form.reset() clears the radios without firing "change", so also undo
+    // what the attending toggle and guest-name fields changed on the page
+    function resetForm() {
+      form.reset();
+      const guestNames = document.getElementById("guestNamesContainer");
+      guestNames.innerHTML = "";
+      guestNames.hidden = false;
+      document.getElementById("guestCountRow").hidden = false;
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
@@ -379,8 +389,7 @@
         status.classList.add("success");
         submitBtn.disabled = false;
         submitBtn.textContent = "Send RSVP";
-        form.reset();
-        document.getElementById("guestNamesContainer").innerHTML = "";
+        resetForm();
         return;
       }
 
@@ -399,8 +408,7 @@
 
         status.textContent = "Thank you! Your RSVP has been received.";
         status.classList.add("success");
-        form.reset();
-        document.getElementById("guestNamesContainer").innerHTML = "";
+        resetForm();
       } catch (err) {
         status.textContent =
           "Something went wrong sending your RSVP. Please try again or contact us directly.";
