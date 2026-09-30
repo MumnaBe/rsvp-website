@@ -1083,7 +1083,7 @@ main { position: relative; }
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 32s linear infinite;
+  animation: marquee-scroll 60s linear infinite;
 }
 .marquee-half {
   white-space: nowrap;
