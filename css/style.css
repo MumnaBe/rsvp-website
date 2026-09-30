@@ -1,6 +1,8 @@
 /* ============================================================
-STYLES SHEET
-============================================================ */
+   ISRAT & SAMIL — Nikkah site
+   Palette matched to the couple's invitation card:
+   vintage ivory paper / near-black ink / antique gold / sage green
+   ============================================================ */
 
 :root {
   --gold: #bc9a63;
@@ -19,6 +21,7 @@ STYLES SHEET
   --font-display: "Playfair Display", "Times New Roman", serif;
   --font-script: "Cormorant Garamond", serif;
   --font-body: "Jost", "Segoe UI", sans-serif;
+  --font-arabic: "Amiri", "Cormorant Garamond", serif;
 }
 
 * { box-sizing: border-box; }
@@ -44,8 +47,142 @@ img { max-width: 100%; display: block; }
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 24px;
+  position: relative;
+  z-index: 3;
 }
 .narrow { max-width: 720px; }
+
+/* ---------- Botanical sprigs ----------
+   The jasmine cut-outs from the invitation artwork, plus the white-peony
+   bouquet, alternating down the page. Every piece is positioned with a
+   positive inset so it sits fully inside its section and is never sliced
+   by the section's own overflow:hidden — each flower shows whole.
+
+   Pseudo-elements rather than section backgrounds, so each edge can be
+   sized, placed and mirrored on its own. They sit behind the content
+   column (.container / .invite-card are z-index 1) and are
+   pointer-events:none, so they never intercept a click. */
+main { position: relative; }
+
+.hero::before, .hero::after,
+.section::before, .section::after,
+.site-footer::before, .site-footer::after,
+.verse-quote::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+/* Hero — the tall jasmine sprays either side of the invitation card */
+.hero::before {
+  background-image: url("../images/extracted-florals/floral-hero-left.png");
+  width: 232px;
+  height: 452px;
+  top: 120px;
+  left: 20px;
+}
+.hero::after {
+  background-image: url("../images/extracted-florals/floral-hero-right.png");
+  width: 175px;
+  height: 385px;
+  top: 300px;
+  right: 20px;
+}
+
+/* The Nikkah / details — the bouquet, level with the du'a where the
+   three-column row below can't cover any of it */
+#details::before,
+#details::after {
+  background-image: url("../images/floral-bouquet.png");
+  width: 190px;
+  height: 203px;
+  top: 30px;
+}
+#details::before { left: 24px; }
+#details::after { right: 24px; transform: scaleX(-1); }
+
+/* Verse band — a sprig tucked inside the right-hand quote panel */
+.verse-quote::after {
+  background-image: url("../images/extracted-florals/floral-quote-right.png");
+  width: 85px;
+  height: 212px;
+  bottom: 18px;
+  right: 14px;
+}
+
+/* RSVP */
+#rsvp::before {
+  background-image: url("../images/extracted-florals/floral-rsvp-left.png");
+  width: 116px;
+  height: 350px;
+  top: 120px;
+  left: 20px;
+}
+#rsvp::after {
+  background-image: url("../images/floral-bouquet.png");
+  width: 195px;
+  height: 209px;
+  top: 165px;
+  right: 20px;
+  transform: scaleX(-1);
+}
+
+/* Footer */
+.site-footer::before {
+  background-image: url("../images/extracted-florals/floral-footer-left.png");
+  width: 147px;
+  height: 147px;
+  bottom: 24px;
+  left: 26px;
+}
+.site-footer::after {
+  background-image: url("../images/extracted-florals/floral-footer-right.png");
+  width: 200px;
+  height: 206px;
+  bottom: 24px;
+  right: 26px;
+}
+/* Footer text has no .container wrapper of its own, so lift it here */
+.site-footer > * { position: relative; z-index: 1; }
+
+/* Below ~1100px the side margins run out, so a whole flower would start
+   sitting under the text column. The pieces stay whole rather than being
+   cropped, and drop back to a soft watermark so the wording still reads
+   cleanly over them. */
+@media (max-width: 1100px) {
+  .hero::before, .hero::after,
+  .section::before, .section::after,
+  .site-footer::before, .site-footer::after { opacity: 0.5; }
+
+  .hero::before { width: 150px; height: 292px; left: 6px; }
+  .hero::after { width: 118px; height: 260px; right: 6px; }
+  #details::before, #details::after { width: 135px; height: 144px; }
+  #details::before { left: 6px; }
+  #details::after { right: 6px; }
+  #rsvp::before { width: 84px; height: 254px; left: 6px; }
+  #rsvp::after { width: 135px; height: 145px; right: 6px; }
+  .site-footer::before { width: 104px; height: 104px; left: 6px; }
+  .site-footer::after { width: 140px; height: 144px; right: 6px; }
+}
+
+@media (max-width: 620px) {
+  .hero::before, .hero::after,
+  .section::before, .section::after,
+  .site-footer::before, .site-footer::after { opacity: 0.38; }
+
+  .hero::before { width: 104px; height: 203px; }
+  .hero::after { width: 82px; height: 180px; }
+  #details::before, #details::after { width: 95px; height: 102px; }
+  #rsvp::before { width: 60px; height: 181px; }
+  #rsvp::after { width: 95px; height: 102px; }
+  .site-footer::before { width: 76px; height: 76px; }
+  .site-footer::after { width: 100px; height: 103px; }
+  .verse-quote::after { width: 60px; height: 150px; }
+}
 
 /* ---------- Reveal-on-scroll ---------- */
 .reveal {
@@ -57,6 +194,10 @@ img { max-width: 100%; display: block; }
   opacity: 1;
   transform: translateY(0);
 }
+/* No fade-in for visitors who have asked their device for less motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
 
 /* ---------- Header / Nav ---------- */
 .site-header {
@@ -65,29 +206,67 @@ img { max-width: 100%; display: block; }
   left: 0;
   right: 0;
   z-index: 100;
-  background: rgba(253, 248, 239, 0);
+  background: rgba(250, 247, 240, 0.9);
+  backdrop-filter: blur(8px);
   transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 .site-header.scrolled {
-  background: rgba(253, 248, 239, 0.92);
-  backdrop-filter: blur(8px);
+  background: rgba(250, 247, 240, 0.97);
   box-shadow: 0 2px 20px rgba(58, 47, 34, 0.08);
 }
 .nav {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 18px 24px;
+  padding: 8px 32px;
+  border-bottom: 1px solid rgba(77, 90, 61, 0.08);
 }
 .nav-toggle { justify-self: start; }
 .nav-monogram {
   font-family: var(--font-script);
   font-style: italic;
-  font-size: 1.4rem;
-  letter-spacing: 0.02em;
-  color: var(--leaf-green-deep);
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink);
   text-decoration: none;
 }
+
+/* Inline desktop links, right-aligned like the invitation mock-up */
+.nav-inline { justify-self: end; }
+.nav-inline ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+}
+.nav-inline a {
+  position: relative;
+  font-family: var(--font-script);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 5px;
+  transition: color 0.25s ease;
+}
+.nav-inline a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -8px; right: -8px;
+  height: 1.5px;
+  background: var(--leaf-green-deep);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.nav-inline a:hover,
+.nav-inline a.is-active { color: var(--leaf-green-deep); }
+.nav-inline a:hover::after,
+.nav-inline a.is-active::after { transform: scaleX(1); }
 
 .nav-toggle {
   display: flex;
@@ -106,13 +285,20 @@ img { max-width: 100%; display: block; }
 .nav-toggle span {
   width: 22px;
   height: 1.5px;
-  background: var(--leaf-green-deep);
+  background: var(--ink);
   display: block;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* The hamburger stays on every width (it holds the full section list);
+   the short inline links drop out below 700px. */
+@media (max-width: 700px) {
+  .nav-inline { display: none; }
+  .nav { padding: 8px 14px; }
+}
 
 /* ---------- Fullscreen menu ---------- */
 .menu-overlay {
@@ -157,64 +343,53 @@ img { max-width: 100%; display: block; }
   color: var(--leaf-green-deep);
 }
 
-/* ---------- Hero ---------- */
+/* ---------- Hero ----------
+   The painted archway scene (images/hero-scene.jpg) fills the band and the
+   invitation wording sits over the plain wall on its right, as in the
+   mock-up. The band keeps the artwork's own proportions so the lantern,
+   vines and vase are never cropped on desktop. */
 .hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 140px 24px 80px;
-  background-color: var(--white);
-  background-image: url("../images/floral-eucalyptus-bg.png"), url("../images/floral-eucalyptus-bg-flip.png");
-  background-repeat: no-repeat, no-repeat;
-  background-position: top -90px right -120px, bottom -110px left -130px;
-  background-size: 540px auto, 500px auto;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  margin-top: 60px; /* clears the fixed header, like the mock-up */
+  aspect-ratio: 2560 / 1609;
+  min-height: 440px;
+  width: 100%;
+  background: #f2eadb url("../images/hero-scene.jpg?v=2") left center / cover no-repeat;
 }
-.hero-frame { max-width: 640px; position: relative; z-index: 1; }
+/* The scene brings its own jasmine, so the loose sprigs aren't needed */
+.hero::before, .hero::after { display: none; }
+.hero-frame { position: relative; z-index: 1; }
 
-/* ---------- Invitation card frame (arch top) ---------- */
+/* ---------- Invitation text column ---------- */
 .invite-card {
   position: relative;
-  z-index: 1;
-  width: 100%;
+  z-index: 3;
+  width: 44%;
   max-width: 620px;
-  margin: 0 auto;
-  padding: 60px 36px 46px;
-  background: transparent;
-  border: 1px solid var(--leaf-green-deep);
-  border-radius: 240px 240px 6px 6px;
-}
-.invite-card::before {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border: 1px solid var(--leaf-green-deep);
-  border-radius: 220px 220px 3px 3px;
-  pointer-events: none;
-}
-/* Small diamond finial where the arch meets its peak, echoing the
-   card's own tiny diamond accents */
-.invite-card::after {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  background: var(--leaf-green-deep);
-  transform: translateX(-50%) rotate(45deg);
-  z-index: 2;
+  margin-right: 12%;
+  padding: 24px 0;
 }
 
-@media (max-width: 600px) {
-  .invite-card {
-    padding: 56px 22px 34px;
-    border-radius: 100px 100px 4px 4px;
+/* Below 700px there's no room beside the lantern, so the band slides to
+   the right-hand wall and vines and the wording takes the full width. */
+@media (max-width: 700px) {
+  .hero {
+    aspect-ratio: auto;
+    max-height: none;
+    min-height: calc(100vh - 60px);
+    justify-content: center;
+    background-position: 92% center;
   }
-  .invite-card::before { border-radius: 88px 88px 2px 2px; }
+  .invite-card {
+    width: 100%;
+    margin: 0;
+    padding: 56px 28px;
+  }
 }
 
 /* Full names (e.g. "SAMIL MEHEDI") at the 1.7rem floor in .invite-name's
@@ -223,216 +398,200 @@ img { max-width: 100%; display: block; }
    the clamp does. Give small screens their own, further-shrinking clamp
    so long names keep clearing the card's curved edge. */
 @media (max-width: 420px) {
-  .invite-name {
-    font-size: clamp(1.1rem, 6.2vw, 1.6rem);
+  .invite-names .invite-name {
+    font-size: clamp(1.3rem, 7vw, 1.8rem);
     letter-spacing: 0.04em;
   }
 }
 
 /* ---------- Invitation wording ---------- */
 .invite-bismillah {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.3rem;
-  color: var(--leaf-green-deep);
+  font-family: var(--font-arabic);
+  font-size: 1.45rem;
+  line-height: 1.8;
+  color: var(--ink);
   margin: 0 0 6px;
 }
 .invite-bismillah-en {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-size: 0.7rem;
-  color: var(--ink-soft);
+  font-weight: 400;
+  color: var(--ink);
   margin: 0 auto 22px;
-  line-height: 1.6;
-  max-width: 380px;
+  line-height: 1.7;
+  max-width: 340px;
 }
 .invite-blessing {
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   font-size: 0.72rem;
-  color: var(--ink-soft);
-  margin: 0 0 16px;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 6px;
 }
 
-.invite-names { margin: 0 0 14px; }
+.invite-names { margin: 0 0 22px; }
 .invite-name {
-  font-family: var(--font-display);
+  font-family: var(--font-script);
   font-weight: 600;
-  font-size: clamp(1.7rem, 4.6vw, 2.4rem);
-  letter-spacing: 0.07em;
+  font-size: clamp(1.9rem, 5vw, 2.7rem);
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  line-height: 1.25;
+  line-height: 1.2;
   color: var(--ink);
   margin: 0;
 }
+/* The mock-up sets the groom's name in deep green, the bride's in ink */
+.invite-names .invite-name:first-child { color: var(--leaf-green-deep); }
+/* "Son of … / Daughter of …" under each name */
+.invite-parents {
+  font-family: var(--font-script);
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  margin: 2px 0 0;
+}
+.invite-parents:empty { display: none; }
+/* "and" between the names, flanked by gold hairlines */
 .invite-and {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
   font-family: var(--font-script);
   font-style: italic;
-  font-size: 1.4rem;
-  color: var(--leaf-green-deep);
-  margin: 6px 0;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--gold-dark);
+  margin: 12px auto 10px;
+  max-width: 300px;
+}
+.invite-and::before,
+.invite-and::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.7;
 }
 .invite-line {
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.78rem;
-  color: var(--ink-soft);
-  margin: 0 0 6px;
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 10px;
 }
 .invite-nikkah {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(1.8rem, 6vw, 2.8rem);
-  letter-spacing: 0.5em;
+  font-family: var(--font-script);
+  font-weight: 500;
+  font-size: clamp(2rem, 6vw, 2.9rem);
+  letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: var(--ink);
-  margin: 0 0 20px;
-  padding-left: 0.5em; /* optically re-center the wide letter-spacing */
-}
-
-/* ---------- Invitation-style date block ---------- */
-.invite-date-row { margin: 34px 0 0; }
-.invite-month {
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.35em;
-  font-size: 0.8rem;
-  color: var(--ink);
-  margin: 0 0 16px;
-}
-.invite-date-line {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 18px;
-  border-top: 1px solid var(--leaf-green);
-  border-bottom: 1px solid var(--leaf-green);
-  padding: 12px 0;
-}
-.invite-day-label,
-.invite-time {
-  font-size: 0.82rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--ink);
-}
-.invite-day-label { text-align: right; }
-.invite-time { text-align: left; }
-.invite-date-num {
-  font-family: "Great Vibes", var(--font-script), cursive;
-  font-size: clamp(2.4rem, 6vw, 3.4rem);
+  line-height: 1.1;
   color: var(--leaf-green-deep);
-  line-height: 1;
-  padding: 0 6px;
-}
-.invite-year {
-  text-align: center;
-  letter-spacing: 0.3em;
-  font-size: 0.8rem;
-  color: var(--ink);
-  margin: 16px 0 22px;
-}
-.invite-venue {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 8px;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.78rem;
-  color: var(--ink-soft);
-  max-width: 340px;
-  margin: 0 auto 20px;
-}
-.invite-pin {
-  width: 16px;
-  height: 16px;
-  margin-top: 3px; /* optically align with the cap-height of the first text line, since align-items is now flex-start (needed so the pin sits by line 1, not centered against the whole wrapped address) */
-  flex-shrink: 0;
-  color: var(--leaf-green);
-}
-.invite-heart {
-  display: block;
-  width: 20px;
-  height: 20px;
-  margin: 0 auto;
-  color: var(--gold);
+  margin: 0;
+  padding-left: 0.42em; /* optically re-center the wide letter-spacing */
 }
 
-/* ---------- Hero inline section nav ---------- */
-.hero-nav { margin-top: 44px; }
-.hero-nav ul {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px 32px;
-  margin: 0;
-  padding: 24px 0 0;
-  border-top: 1px solid var(--border);
+/* Beside the scene, the wording scales with the artwork so it keeps the
+   mock-up's proportions at any width. --u is 1% of the band's width,
+   the same unit the Nikkah section below uses. */
+@media (min-width: 701px) {
+  /* --t sizes the text: a little smaller than the artwork unit, and it
+     stops growing on very wide screens */
+  .hero { --u: 1vw; --t: min(0.75vw, 11.5px); }
+  .hero .invite-card { width: calc(var(--u) * 44); margin-right: calc(var(--u) * 14); padding: 0; }
+  .hero .invite-bismillah { font-size: calc(var(--t) * 2.6); line-height: 1.5; margin: 0 0 calc(var(--t) * 0.4); }
+  .hero .invite-bismillah-en,
+  .hero .invite-blessing,
+  .hero .invite-line { font-size: max(0.6rem, calc(var(--t) * 1.27)); letter-spacing: 0.11em; }
+  .hero .invite-line { letter-spacing: 0.16em; }
+  .hero .invite-bismillah-en { max-width: calc(var(--t) * 36); line-height: 1.55; margin-bottom: calc(var(--t) * 2); }
+  .hero .invite-blessing { margin-bottom: calc(var(--t) * 0.9); }
+  .hero .invite-names { margin-bottom: calc(var(--t) * 2.2); }
+  .hero .invite-names .invite-name { font-size: calc(var(--t) * 4.3); font-weight: 700; letter-spacing: 0.01em; line-height: 1; }
+  .hero .invite-parents { font-size: max(0.8rem, calc(var(--t) * 1.95)); color: var(--ink); margin-top: calc(var(--t) * 0.1); }
+  .hero .invite-and { font-size: calc(var(--t) * 2.9); max-width: calc(var(--t) * 34); margin: calc(var(--t) * 1) auto; }
+  .hero .invite-line { margin-bottom: calc(var(--t) * 0.6); }
+  .hero .invite-nikkah { font-size: calc(var(--t) * 4.6); font-weight: 600; }
+  .hero .invite-card .ornament { margin: calc(var(--t) * 1.6) auto calc(var(--t) * 1); max-width: calc(var(--t) * 12.5); }
+  .hero .invite-card .ornament::after { width: calc(var(--t) * 2.4); height: calc(var(--t) * 2.4); }
+  .hero .invite-datestamp { font-size: calc(var(--t) * 3.5); letter-spacing: 0.03em; word-spacing: 0.05em; }
 }
-.hero-nav a {
-  font-family: var(--font-display);
-  color: var(--ink);
-  text-decoration: none;
-  font-size: 0.9rem;
-  letter-spacing: 0.03em;
+
+/* Hero ornament is gold in the mock-up; other sections keep the green */
+.hero .ornament { margin: 14px auto 18px; max-width: 200px; }
+.hero .ornament::before { background: var(--gold); opacity: 0.8; }
+.hero .ornament::after { background: var(--gold); width: 9px; height: 9px; }
+
+/* Gold rule with a small four-petal flower at its centre — the mock-up's
+   ornament for the invitation and the Nikkah details */
+.hero .ornament::before,
+#details .ornament::before { background: var(--gold); opacity: 0.8; }
+.hero .ornament::after,
+#details .ornament::after {
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg fill='%23b08d55'%3E%3Ccircle cx='10' cy='4.6' r='3.1'/%3E%3Ccircle cx='10' cy='15.4' r='3.1'/%3E%3Ccircle cx='4.6' cy='10' r='3.1'/%3E%3Ccircle cx='15.4' cy='10' r='3.1'/%3E%3Crect x='6.6' y='6.6' width='6.8' height='6.8' transform='rotate(45 10 10)'/%3E%3C/g%3E%3Ccircle cx='10' cy='10' r='1.6' fill='%23f3ead8'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- Ornaments (hairline rule with a centred diamond) ---------- */
+.ornament {
   position: relative;
-  padding-bottom: 6px;
+  height: 8px;
+  max-width: 220px;
+  margin: 24px auto 30px;
 }
-.hero-nav a::after {
+.ornament::before {
   content: "";
   position: absolute;
-  left: 0; right: 0; bottom: 0;
+  top: 50%;
+  left: 0;
+  right: 0;
   height: 1px;
   background: var(--leaf-green);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  opacity: 0.45;
 }
-.hero-nav a:hover::after,
-.hero-nav a.is-active::after { transform: scaleX(1); }
-.hero-nav a.is-active { color: var(--leaf-green-deep); }
-
-.scroll-cue {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 0;
-  font-size: 0.68rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  padding-bottom: 30px;
-}
-.scroll-cue::after {
+.ornament::after {
   content: "";
   position: absolute;
+  top: 50%;
   left: 50%;
-  bottom: 0;
-  width: 1px;
-  height: 22px;
+  width: 7px;
+  height: 7px;
   background: var(--leaf-green);
-  transform: translateX(-50%);
-  animation: scroll-pulse 1.8s ease-in-out infinite;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
-@keyframes scroll-pulse {
-  0%, 100% { opacity: 0.15; transform: translateX(-50%) scaleY(0.5); transform-origin: top; }
-  50% { opacity: 1; transform: translateX(-50%) scaleY(1); transform-origin: top; }
+
+/* A plain rule, used to close the du'a block */
+.ornament-line {
+  width: 90px;
+  height: 1px;
+  background: var(--leaf-green);
+  opacity: 0.45;
+  margin: 30px auto 60px;
 }
-@media (prefers-reduced-motion: reduce) {
-  .scroll-cue::after { animation: none; opacity: 0.6; }
-}
-@media (max-width: 760px) {
-  .scroll-cue { display: none; }
+
+/* ---------- Invitation date stamp (17 · 10 · 2026) ---------- */
+.invite-datestamp {
+  font-family: var(--font-script);
+  font-size: clamp(1.4rem, 3.4vw, 1.8rem);
+  letter-spacing: 0.1em;
+  font-variant-numeric: lining-nums;
+  color: var(--leaf-green-deep);
+  margin: 0;
 }
 
 .countdown {
   display: flex;
   justify-content: center;
   gap: clamp(14px, 4vw, 32px);
-  margin-bottom: 40px;
+  margin: 40px 0 0;
 }
+.countdown[hidden] { display: none; }
 .countdown-item {
   display: flex;
   flex-direction: column;
@@ -453,14 +612,15 @@ img { max-width: 100%; display: block; }
   margin-top: 6px;
 }
 
+/* ---------- Buttons ---------- */
 .btn {
   display: inline-block;
   font-family: var(--font-body);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   text-decoration: none;
-  padding: 16px 42px;
+  padding: 16px 40px;
   border-radius: 2px;
   border: 1px solid var(--leaf-green);
   cursor: pointer;
@@ -475,25 +635,21 @@ img { max-width: 100%; display: block; }
   border-color: var(--leaf-green-deep);
   box-shadow: var(--shadow);
 }
+.btn-arrow {
+  display: inline-block;
+  margin-left: 8px;
+  transform: translateY(-1px);
+}
 
 /* ---------- Sections ---------- */
 .section {
   padding: 100px 0;
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 .section-beige {
   background-color: var(--beige);
-  background-image: url("../images/floral-eucalyptus-bg.png");
-  background-repeat: no-repeat;
-  background-position: bottom -150px right -170px;
-  background-size: 340px auto;
-}
-.section:not(.section-beige) {
-  background-image: url("../images/floral-eucalyptus-bg-flip.png");
-  background-repeat: no-repeat;
-  background-position: top -130px left -160px;
-  background-size: 320px auto;
 }
 
 .kicker {
@@ -501,94 +657,409 @@ img { max-width: 100%; display: block; }
   font-family: var(--font-script);
   font-style: italic;
   color: var(--leaf-green-deep);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   margin: 0 0 6px;
 }
 .section-title {
   text-align: center;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-size: clamp(1.9rem, 4vw, 2.7rem);
   margin: 0;
   color: var(--ink);
 }
-.divider {
-  width: 70px;
-  height: 2px;
-  background: var(--leaf-green);
-  margin: 22px auto 46px;
+
+/* ---------- Du'a block ---------- */
+.dua { text-align: center; max-width: 660px; margin: 0 auto; }
+.dua-arabic {
+  font-family: var(--font-arabic);
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  line-height: 2;
+  color: var(--leaf-green-deep);
+  margin: 0 0 18px;
+}
+.dua-translation {
+  font-family: var(--font-script);
+  font-style: italic;
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  line-height: 1.8;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.dua-source {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.66rem;
+  color: var(--gold-dark);
+  margin: 14px 0 0;
 }
 
-/* ---------- Details ---------- */
-.details-grid {
+/* ---------- Facts row (date / time / venue) ---------- */
+.facts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: start;
+  max-width: 900px;
+  margin: 0 auto;
 }
-.detail-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 44px 32px;
+/* Hairline separators between the three columns, like the mock-up */
+.facts .fact + .fact {
+  border-left: 1px solid var(--border);
+}
+.fact {
   text-align: center;
-  box-shadow: var(--shadow);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  padding: 10px 24px;
 }
-.detail-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 28px 60px -20px rgba(58, 47, 34, 0.3);
-}
-.detail-icon {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 20px;
+.fact-icon {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 16px;
   color: var(--leaf-green);
 }
-.detail-icon svg { width: 100%; height: 100%; }
-.detail-card h3 {
+.fact-icon svg { width: 100%; height: 100%; }
+.fact-sub {
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.fact-lead {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 1.3rem;
-  margin: 0 0 16px;
+  font-size: 2.6rem;
+  line-height: 1.15;
   color: var(--ink);
+  margin: 6px 0;
 }
-.detail-line {
-  margin: 0 0 4px;
+.fact-lead-sm { font-size: 1.9rem; margin-top: 14px; }
+.fact-name {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.82rem;
+  font-weight: 500;
   color: var(--ink);
+  margin: 0 0 8px;
 }
-.detail-note {
-  margin-top: 16px;
-  font-size: 0.85rem;
+.fact-address {
+  font-size: 0.86rem;
+  line-height: 1.6;
   color: var(--ink-soft);
-  font-style: italic;
+  margin: 0;
+}
+.facts-cta { text-align: center; margin-top: 46px; }
+
+@media (max-width: 760px) {
+  .facts { grid-template-columns: 1fr; gap: 34px; }
+  .facts .fact + .fact {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-top: 30px;
+  }
 }
 
-/* ---------- Location ---------- */
-#locationText {
-  text-align: center;
+/* ---------- The Nikkah section, matched to the mock-up ----------
+   Marble paper with jasmine branches in three corners (images/details-bg.jpg),
+   and the wording set in Cormorant throughout. */
+#details {
+  background: #f3efe4 url("../images/details-bg.jpg?v=1") center / cover no-repeat;
+}
+#details::before, #details::after { display: none; }
+#details .dua-arabic { color: var(--leaf-green-deep); line-height: 1.6; margin: 0 0 8px; }
+#details .dua-translation {
+  color: var(--ink);
+  line-height: 1.45;
+  max-width: 13.6em;
+  margin: 0 auto;
+}
+#details .dua-source {
+  font-family: var(--font-script);
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
   color: var(--ink-soft);
-  margin-bottom: 30px;
+  margin: 8px 0 0;
 }
-.map-frame {
+#details .ornament { max-width: 110px; margin: 18px auto 22px; }
+#details .kicker { color: var(--ink); margin: 0; }
+#details .section-title {
+  font-family: var(--font-script);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+}
+#details .facts { max-width: 560px; align-items: center; }
+#details .facts .fact + .fact { border-left-color: rgba(42, 38, 34, 0.35); }
+#details .fact { padding: 0 12px; }
+#details .fact-icon { color: var(--leaf-green-deep); margin-bottom: 8px; }
+#details .fact-icon svg * { stroke-width: 3; }
+#details .facts { grid-template-columns: 1.3fr 1fr 1.3fr; }
+#details .fact-sub {
+  font-family: var(--font-script);
+  font-weight: 600;
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+#details .fact-lead {
+  font-family: var(--font-script);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: lining-nums;
+  margin: 2px 0;
+}
+#details .fact-lead-sm { font-weight: 600; margin: 0; }
+#details .fact-name {
+  font-family: var(--font-script);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 0 0 2px;
+}
+#details .fact-address {
+  font-family: var(--font-script);
+  font-weight: 500;
+  max-width: 13.2em;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  color: var(--ink);
+  line-height: 1.35;
+  font-variant-numeric: lining-nums;
+}
+#details .facts-cta { margin-top: 18px; }
+#details .btn-primary {
+  background: var(--leaf-green-deep);
+  border-color: var(--leaf-green-deep);
+  color: #f3ead8;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+@media (max-width: 760px) {
+  /* The stacked layout is tall, so show the artwork at full width along
+     the top rather than cropping its corner florals away */
+  #details { background-size: 100% auto; background-position: center top; }
+  #details .facts { grid-template-columns: 1fr; }
+  #details .facts .fact + .fact { padding-top: 26px; }
+}
+
+/* Desktop: everything scales off the band's width, like the hero, so the
+   section keeps the mock-up's proportions against the artwork. */
+@media (min-width: 701px) {
+  #details { --u: 1vw; --t: min(0.75vw, 11.5px); padding: calc(var(--u) * 3) 0 calc(var(--u) * 3.6); min-height: calc(var(--u) * 56.5); }
+  #details .container { max-width: none; }
+  #details .dua { max-width: none; }
+  #details .dua-arabic { font-size: calc(var(--t) * 3.3); }
+  #details .dua-translation { font-size: calc(var(--t) * 2.35); }
+  #details .dua-source { font-size: max(0.7rem, calc(var(--t) * 1.6)); margin-top: calc(var(--t) * 0.6); }
+  #details .ornament { max-width: calc(var(--t) * 11); margin: calc(var(--t) * 1.4) auto calc(var(--t) * 1); }
+  #details .ornament::after { width: calc(var(--t) * 1.6); height: calc(var(--t) * 1.6); }
+  #details .kicker { font-size: calc(var(--t) * 1.9); }
+  #details .section-title { font-size: calc(var(--t) * 4.8); }
+  #details .facts { max-width: calc(var(--t) * 76); }
+  #details .facts .fact + .fact { border-left-width: 1px; }
+  #details .fact { padding: 0 calc(var(--t) * 1.2); }
+  #details .fact-icon { width: calc(var(--t) * 4.6); height: calc(var(--t) * 4.6); margin-bottom: 0; }
+  #details .fact-sub { font-size: max(0.7rem, calc(var(--t) * 1.75)); }
+  #details .fact-lead { font-size: calc(var(--t) * 6.6); }
+  #details .fact-lead-sm { font-size: calc(var(--t) * 3.3); }
+  #details .fact-name { font-size: max(0.7rem, calc(var(--t) * 1.65)); }
+  #details .fact-address { font-size: max(0.72rem, calc(var(--t) * 1.65)); }
+  #details .facts-cta { margin-top: calc(var(--t) * 0.8); }
+  #details .btn { font-size: max(0.62rem, calc(var(--t) * 1.3)); padding: calc(var(--t) * 1.35) calc(var(--t) * 3); }
+}
+
+/* ---------- Verse band (photo + quote) ---------- */
+.verse-band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  /* Above the page's botanical side strips: this band runs edge to edge,
+     so leaves drifting across the photo would just look like a mistake. */
+  z-index: 3;
+  background: var(--beige-deep);
+}
+.verse-photo {
+  position: relative;
+  min-height: 460px;
+  background-color: var(--beige-deep);
+  background-size: cover;
+  background-position: center;
+}
+/* No photo set in config yet — fall back to a botanical still life so the
+   band still reads as designed rather than as an empty grey box. */
+.verse-photo:not([style*="background-image"]) {
+  background-image: url("../images/floral-bouquet.png");
+  background-size: 62% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+/* Thin inset rule, so the fallback panel looks framed rather than bare */
+.verse-photo:not([style*="background-image"])::after {
+  content: "";
+  position: absolute;
+  inset: 26px;
   border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  aspect-ratio: 16 / 9;
+  pointer-events: none;
 }
-.map-frame iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
+.verse-quote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 70px 40px;
+  background-color: var(--beige);
+  position: relative;
+  overflow: hidden;
+}
+/* Arch outline echoing the invitation card at the top of the page */
+.verse-arch {
+  position: relative;
+  max-width: 420px;
+  text-align: center;
+  padding: 54px 34px 40px;
+  border: 1px solid var(--border);
+  border-radius: 200px 200px 4px 4px;
+}
+/* ---------- Verse band, matched to the mock-up ----------
+   Left: the cream arch with jasmine (images/verse-quote-bg.jpg) holding the
+   verse. Right: the lattice-window photo from config.versePanelImage. */
+.verse-quote {
+  background: #f1ebdf url("../images/verse-quote-bg.jpg?v=1") center / cover no-repeat;
+  padding: 60px 28px;
+}
+.verse-quote::after { display: none; }
+.verse-arch {
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  max-width: none;
+}
+/* The order of the day, set inside the arch */
+.verse-arch .kicker { color: var(--ink); margin: 0; }
+.verse-arch .section-title {
+  font-family: var(--font-script);
+  font-weight: 600;
+  line-height: 1.1;
+}
+.verse-arch .timeline { max-width: none; margin: 14px auto 0; display: inline-grid; grid-template-columns: auto auto; column-gap: 1.1em; row-gap: 4px; text-align: left; }
+.verse-arch .timeline::before { display: none; }
+.verse-arch .timeline-item { display: contents; }
+.verse-arch .timeline-item::before { display: none; }
+.verse-arch .timeline-time {
+  font-family: var(--font-script);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  font-variant-numeric: lining-nums;
+  color: var(--leaf-green-deep);
+  text-align: right;
+}
+.verse-arch .timeline-title {
+  font-family: var(--font-script);
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.verse-arch .ornament { max-width: 90px; margin: 12px auto 0; }
+.verse-arch .ornament::before { background: var(--gold); opacity: 0.8; }
+.verse-arch .ornament::after,
+.footer-ornament::after {
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg fill='%23b08d55'%3E%3Ccircle cx='10' cy='4.6' r='3.1'/%3E%3Ccircle cx='10' cy='15.4' r='3.1'/%3E%3Ccircle cx='4.6' cy='10' r='3.1'/%3E%3Ccircle cx='15.4' cy='10' r='3.1'/%3E%3Crect x='6.6' y='6.6' width='6.8' height='6.8' transform='rotate(45 10 10)'/%3E%3C/g%3E%3Ccircle cx='10' cy='10' r='1.6' fill='%23f3ead8'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: translate(-50%, -50%);
+}
+@media (min-width: 701px) {
+  /* Same units as the sections above: --u follows the band's width,
+     --t sizes the text a touch smaller and caps it on wide screens. */
+  .verse-band { --u: 1vw; --t: min(0.75vw, 11.5px); aspect-ratio: 824 / 305; }
+  .verse-photo { min-height: 0; }
+  .verse-quote { padding: 0; order: -1; } /* quote left, photo right */
+  /* The arch in the artwork is centred a little right of the panel's middle */
+  .verse-arch { margin-left: calc(var(--u) * 6); }
+  .verse-arch .kicker { font-size: calc(var(--t) * 1.9); }
+  .verse-arch .section-title { font-size: calc(var(--t) * 4.6); }
+  .verse-arch .ornament { max-width: calc(var(--t) * 11); margin-top: calc(var(--t) * 1.2); }
+  .verse-arch .timeline { margin-top: calc(var(--t) * 2); row-gap: calc(var(--t) * 0.5); }
+  .verse-arch .timeline-time { font-size: max(0.7rem, calc(var(--t) * 1.8)); }
+  .verse-arch .timeline-title { font-size: max(0.8rem, calc(var(--t) * 2.3)); }
+  .verse-arch .ornament::after { width: calc(var(--t) * 1.8); height: calc(var(--t) * 1.8); }
+}
+@media (max-width: 700px) {
+  .verse-band { grid-template-columns: 1fr; }
+  .verse-photo { aspect-ratio: 412 / 305; min-height: 0; }
+}
+
+/* ---------- Itinerary (order-of-the-day timeline) ---------- */
+.timeline {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 520px;
+  position: relative;
+}
+/* The vertical thread the markers sit on. Inset to line up with the
+   centre of the .timeline-item markers below. */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 7px;
+  width: 1px;
+  background: var(--border);
+}
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  align-items: baseline;
+  gap: 4px 18px;
+  padding: 0 0 30px 36px;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0.55em;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--gold);
+}
+.timeline-time {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--leaf-green-deep);
+  white-space: nowrap;
+}
+.timeline-title {
+  font-family: var(--font-display);
+  font-size: 1.12rem;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .timeline-item {
+    grid-template-columns: 1fr;
+    padding-left: 30px;
+    padding-bottom: 26px;
+  }
+  .timeline-title { font-size: 1.05rem; }
 }
 
 /* ---------- Marquee (dynamic scrolling ticker) ---------- */
 .marquee {
   overflow: hidden;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  background: var(--beige);
-  padding: 16px 0;
+  background: var(--leaf-green-deep);
+  padding: 14px 0;
+  position: relative;
+  z-index: 3;
 }
 .marquee-track {
   display: flex;
@@ -597,13 +1068,20 @@ img { max-width: 100%; display: block; }
 }
 .marquee-half {
   white-space: nowrap;
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
+  font-family: var(--font-script);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--leaf-green-deep);
+  color: var(--beige);
 }
-.marquee-half span { color: var(--leaf-green); font-size: 0.7em; margin: 0 2px; }
+.marquee-half span {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 0.75em;
+  margin: 0 24px;
+  vertical-align: 0.12em;
+}
 @keyframes marquee-scroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -613,39 +1091,84 @@ img { max-width: 100%; display: block; }
 }
 
 /* ---------- RSVP ---------- */
+/* Marble paper with the mock-up's jasmine sprays (images/rsvp-bg.jpg) along
+   the top, fading into plain paper behind the form. */
+#rsvp {
+  background:
+    linear-gradient(rgba(248, 243, 232, 0) 55%, #f8f3e8) center top / 100% 39.6vw no-repeat,
+    url("../images/rsvp-bg.jpg?v=1") center top / 100% auto no-repeat,
+    #f8f3e8;
+}
+#rsvp::before, #rsvp::after { display: none; }
+#rsvp .kicker { color: var(--ink); margin: 0; }
+#rsvp .section-title {
+  font-family: var(--font-script);
+  font-weight: 600;
+  line-height: 1.1;
+}
+#rsvp .ornament::before { background: var(--gold); opacity: 0.8; }
+#rsvp .ornament::after {
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cg fill='%23b08d55'%3E%3Ccircle cx='10' cy='4.6' r='3.1'/%3E%3Ccircle cx='10' cy='15.4' r='3.1'/%3E%3Ccircle cx='4.6' cy='10' r='3.1'/%3E%3Ccircle cx='15.4' cy='10' r='3.1'/%3E%3Crect x='6.6' y='6.6' width='6.8' height='6.8' transform='rotate(45 10 10)'/%3E%3C/g%3E%3Ccircle cx='10' cy='10' r='1.6' fill='%23f3ead8'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: translate(-50%, -50%);
+}
+#rsvp .ornament { max-width: 110px; margin: 14px auto 16px; }
+#rsvp .rsvp-note { color: var(--ink); line-height: 1.5; }
+@media (min-width: 701px) {
+  #rsvp { --t: min(0.75vw, 11.5px); padding-top: calc(var(--t) * 3.5); }
+  #rsvp .kicker { font-size: calc(var(--t) * 1.9); }
+  #rsvp .section-title { font-size: calc(var(--t) * 5.2); }
+  #rsvp .ornament { max-width: calc(var(--t) * 11); }
+  #rsvp .ornament::after { width: calc(var(--t) * 1.8); height: calc(var(--t) * 1.8); }
+  #rsvp .rsvp-note { font-size: max(1rem, calc(var(--t) * 2.3)); }
+}
 .rsvp-note {
   text-align: center;
+  font-family: var(--font-script);
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.9;
   color: var(--ink-soft);
   margin-bottom: 36px;
 }
+/* No card around the form: the fields sit straight on the marble paper,
+   as in the mock-up */
 .rsvp-form {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 44px;
-  box-shadow: var(--shadow);
+  max-width: 600px;
+  margin: 0 auto;
+}
+/* Name and email sit side by side on desktop, stacking on phones */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 26px;
+}
+@media (max-width: 620px) {
+  .form-grid { grid-template-columns: 1fr; }
 }
 .form-row { margin-bottom: 24px; }
 .form-row label,
 .fieldset-label {
   display: block;
-  font-size: 0.78rem;
+  font-size: 0.7rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--leaf-green-deep);
-  margin-bottom: 8px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  margin-bottom: 7px;
 }
 input[type="text"],
 input[type="email"],
 select,
 textarea {
   width: 100%;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  background: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+  padding: 10px 12px;
+  border: 1px solid #d9c6a5;
+  border-radius: 2px;
+  background: rgba(253, 250, 244, 0.85);
+  font-family: var(--font-script);
+  font-size: 1.05rem;
   color: var(--ink);
 }
 input:focus, select:focus, textarea:focus {
@@ -657,9 +1180,10 @@ input:focus, select:focus, textarea:focus {
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid var(--border);
-  padding: 10px 18px;
-  border-radius: 999px;
+  border: 1px solid #d9c6a5;
+  background: rgba(253, 250, 244, 0.85);
+  padding: 8px 18px;
+  border-radius: 2px;
   cursor: pointer;
   font-size: 0.9rem;
   text-transform: none;
@@ -668,13 +1192,22 @@ input:focus, select:focus, textarea:focus {
   transition: all 0.25s ease;
 }
 .radio-pill:has(input:checked) {
-  background: var(--leaf-green);
-  border-color: var(--leaf-green);
-  color: var(--white);
+  background: var(--leaf-green-deep);
+  border-color: var(--leaf-green-deep);
+  color: #f3ead8;
 }
 .radio-pill input { accent-color: var(--leaf-green-deep); }
 
-.rsvp-form .btn { width: 100%; }
+/* Centred dark-green button, like Get Directions and the mock-up */
+.rsvp-form .btn {
+  display: block;
+  margin: 8px auto 0;
+  min-width: 220px;
+  background: var(--leaf-green-deep);
+  border-color: var(--leaf-green-deep);
+  color: #f3ead8;
+  font-weight: 500;
+}
 .form-status {
   margin: 16px 0 0;
   text-align: center;
@@ -684,47 +1217,65 @@ input:focus, select:focus, textarea:focus {
 .form-status.success { color: #4a7a4a; }
 .form-status.error { color: #a0453b; }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer, matched to the mock-up ----------
+   Deep green with jasmine sprays either side (images/footer-bg.jpg). */
 .site-footer {
   text-align: center;
-  padding: 70px 24px 50px;
-  background-color: var(--beige);
-  background-image: url("../images/floral-eucalyptus-bg-flip.png");
-  background-repeat: no-repeat;
-  background-position: bottom -110px left -140px;
-  background-size: 300px auto;
-  border-top: 1px solid var(--border);
-  color: var(--ink-soft);
+  padding: 26px 24px 28px;
+  background: #3f4c37 url("../images/footer-bg.jpg?v=1") center / cover no-repeat;
+  overflow: hidden;
+  color: #f3ead8;
   position: relative;
 }
-.footer-names {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.6rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+.site-footer::before, .site-footer::after { display: none; }
+.footer-monogram {
+  font-family: var(--font-script);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.7rem;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
   margin: 0;
-  color: var(--leaf-green-deep);
+  color: #f3ead8;
 }
-.site-footer .divider { margin: 18px auto 22px; }
+.footer-heart {
+  width: 18px;
+  height: 18px;
+  margin: 8px auto 10px;
+  color: #f3ead8;
+}
 .footer-note {
   margin: 0;
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  letter-spacing: 0.03em;
+  font-family: var(--font-script);
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: #f3ead8;
+}
+.footer-datestamp {
+  font-family: var(--font-script);
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  font-variant-numeric: lining-nums;
+  color: #f3ead8;
+  margin: 10px 0 0;
+}
+.footer-ornament { max-width: 90px; margin: 16px auto 0; }
+.footer-ornament::before { background: var(--gold); opacity: 0.9; }
+@media (min-width: 701px) {
+  .site-footer { --u: 1vw; --t: min(0.75vw, 11.5px); min-height: calc(var(--u) * 23.8); padding: calc(var(--u) * 2.6) 24px calc(var(--u) * 2.6); }
+  .footer-monogram { font-size: calc(var(--t) * 2.8); }
+  .footer-heart { width: calc(var(--t) * 1.9); height: calc(var(--t) * 1.9); margin: calc(var(--t) * 0.8) auto calc(var(--t) * 1); }
+  .footer-note { font-size: max(0.85rem, calc(var(--t) * 1.8)); }
+  .footer-datestamp { font-size: calc(var(--t) * 2.15); margin-top: calc(var(--t) * 1); }
+  .footer-ornament { max-width: calc(var(--t) * 10.5); margin-top: calc(var(--t) * 2); }
+  .footer-ornament::after { width: calc(var(--t) * 1.8); height: calc(var(--t) * 1.8); }
 }
 
 @media (max-width: 600px) {
-  .rsvp-form { padding: 30px 22px; }
+  .rsvp-form .btn { width: 100%; }
   .section { padding: 70px 0; }
 }
 
 @media (max-width: 760px) {
-  .hero { padding-top: 110px; }
-  .hero-nav ul { gap: 10px 20px; }
   .menu-list a { font-size: 1rem; padding: 16px 24px; }
-}
-
-@media (max-width: 420px) {
-  .hero-date { font-size: 0.9rem; letter-spacing: 0.06em; }
 }

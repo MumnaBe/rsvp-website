@@ -10,60 +10,92 @@
   function populateContent() {
     document.getElementById("heroBride").textContent = cfg.bride;
     document.getElementById("heroGroom").textContent = cfg.groom;
+    // Left empty in config, these stay blank and :empty hides the line.
+    document.getElementById("heroGroomParents").textContent = cfg.groomParents || "";
+    document.getElementById("heroBrideParents").textContent = cfg.brideParents || "";
 
     const bismillahEl = document.getElementById("heroBismillah");
     const bismillahEnEl = document.getElementById("heroBismillahEn");
-    if (cfg.showBismillah) {
-      bismillahEl.hidden = false;
-      bismillahEnEl.hidden = false;
-    } else {
-      bismillahEl.hidden = true;
-      bismillahEnEl.hidden = true;
-    }
+    bismillahEl.hidden = !cfg.showBismillah;
+    bismillahEnEl.hidden = !cfg.showBismillah;
+
     document.getElementById("heroBlessing").textContent = cfg.invitationBlessing;
     document.getElementById("heroInviteLine").textContent = cfg.invitationInviteLine;
 
-    // Derived from the single nikkahDateISO source of truth
+    // Everything date-shaped is derived from the single nikkahDateISO
+    // source of truth, so the invitation stamp, the details row and the
+    // marquee can never drift apart.
     const nikkahDate = new Date(cfg.nikkahDateISO);
-    document.getElementById("heroMonth").textContent =
-      nikkahDate.toLocaleDateString("en-US", { month: "long" });
-    document.getElementById("heroDay").textContent =
-      nikkahDate.toLocaleDateString("en-US", { weekday: "long" });
-    document.getElementById("heroDateNum").textContent = nikkahDate.getDate();
-    document.getElementById("heroYear").textContent = nikkahDate.getFullYear();
-    document.getElementById("heroTime").textContent = cfg.nikkahTimeDisplay;
+    const dd = String(nikkahDate.getDate()).padStart(2, "0");
+    const mm = String(nikkahDate.getMonth() + 1).padStart(2, "0");
+    const yyyy = nikkahDate.getFullYear();
+    const weekday = nikkahDate.toLocaleDateString("en-US", { weekday: "long" });
+    const monthName = nikkahDate.toLocaleDateString("en-US", { month: "long" });
+    const dateStamp = `${dd} \u00b7 ${mm} \u00b7 ${yyyy}`;
 
-    document.getElementById("heroVenue").textContent =
-      `${cfg.venueName}, ${cfg.venueAddress}`;
-    document.getElementById("navBrand").textContent =
-      `${cfg.groom[0]} & ${cfg.bride[0]}`;
+    document.getElementById("heroDateStamp").textContent = dateStamp;
+    document.getElementById("footerDateStamp").textContent = dateStamp;
+
+    const monogram = `${cfg.groom[0]} & ${cfg.bride[0]}`;
+    document.getElementById("navBrand").textContent = monogram;
+    document.getElementById("footerMonogram").textContent = monogram;
     document.title = `${cfg.groom} & ${cfg.bride} — Our Nikkah`;
 
-    document.getElementById("detailDate").textContent = cfg.nikkahDateDisplay;
-    document.getElementById("detailTime").textContent = cfg.nikkahTimeDisplay;
-    document.getElementById("detailVenue").textContent =
-      `${cfg.venueName}, ${cfg.venueAddress}`;
-    document.getElementById("detailNote").textContent = cfg.venueNote;
+    // Du'a above the details
+    document.getElementById("duaArabic").textContent = cfg.duaArabic || "";
+    document.getElementById("duaTranslation").textContent = cfg.duaTranslation || "";
+    document.getElementById("duaSource").textContent = cfg.duaSource || "";
 
-    if (cfg.hasReception) {
-      document.getElementById("receptionDate").textContent = cfg.receptionDateDisplay;
-      document.getElementById("receptionTime").textContent = cfg.receptionTimeDisplay;
-      document.getElementById("receptionVenue").textContent =
-        `${cfg.receptionVenueName}, ${cfg.receptionVenueAddress}`;
-      document.getElementById("receptionNote").textContent = "";
+    // Date / time / venue row
+    document.getElementById("factWeekday").textContent = weekday;
+    document.getElementById("factDayNum").textContent = nikkahDate.getDate();
+    document.getElementById("factMonthYear").textContent = `${monthName} ${yyyy}`;
+    document.getElementById("factTime").textContent = cfg.nikkahTimeDisplay;
+    document.getElementById("factVenue").textContent = cfg.venueName;
+    document.getElementById("factAddress").textContent = cfg.venueAddress;
+
+    // "Get Directions" opens the venue in Google Maps directions mode
+    document.getElementById("directionsBtn").href =
+      `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(cfg.mapQuery)}`;
+
+    // Verse panel
+    const versePhoto = document.getElementById("versePhoto");
+    if (cfg.versePanelImage) {
+      versePhoto.style.backgroundImage = `url("${cfg.versePanelImage}")`;
     }
 
-    document.getElementById("locationText").textContent =
-      `${cfg.venueName} · ${cfg.venueAddress}`;
-    document.getElementById("mapEmbed").src =
-      `https://maps.google.com/maps?q=${encodeURIComponent(cfg.mapQuery)}&output=embed`;
+  }
 
-    document.getElementById("rsvpBy").textContent = cfg.rsvpByDisplay;
-    document.getElementById("footerNames").textContent = `${cfg.groom} & ${cfg.bride}`;
+  /* ---------- Itinerary ---------- */
+  // Built from cfg.itinerary so the order of the day lives in one place.
+  function renderItinerary() {
+    const list = document.getElementById("itineraryList");
+    if (!list || !Array.isArray(cfg.itinerary)) return;
+
+    list.innerHTML = "";
+    cfg.itinerary.forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "timeline-item reveal";
+
+      const time = document.createElement("span");
+      time.className = "timeline-time";
+      time.textContent = item.time;
+
+      const title = document.createElement("span");
+      title.className = "timeline-title";
+      title.textContent = item.title;
+
+      li.append(time, title);
+      list.appendChild(li);
+    });
   }
 
   /* ---------- Countdown ---------- */
   function startCountdown() {
+    const wrap = document.getElementById("countdown");
+    if (!cfg.showCountdown) return; // stays [hidden] as authored in the markup
+    wrap.hidden = false;
+
     const target = new Date(cfg.nikkahDateISO).getTime();
     const els = {
       days: document.getElementById("cdDays"),
@@ -137,9 +169,9 @@
   /* ---------- Active section tracking ---------- */
   function initActiveSection() {
     const navLinks = document.querySelectorAll(
-      '.hero-nav a[data-section], .menu-list a[data-section]'
+      '.nav-inline a[data-section], .menu-list a[data-section]'
     );
-    const sectionIds = ["top", "details", "location", "rsvp"];
+    const sectionIds = ["top", "details", "itinerary", "rsvp"];
     const sections = sectionIds
       .map((id) => (id === "top" ? document.querySelector(".hero") : document.getElementById(id)))
       .filter(Boolean);
@@ -186,14 +218,22 @@
     const tracks = document.querySelectorAll(".marquee-track");
     if (!tracks.length) return;
 
-    const unit =
-      `${cfg.groom} &amp; ${cfg.bride}` +
-      ` <span aria-hidden="true">&#9670;</span> ` +
-      `${cfg.nikkahDateDisplay}` +
-      ` <span aria-hidden="true">&#9670;</span> ` +
-      `${cfg.venueName}` +
-      ` <span aria-hidden="true">&#9670;</span> `;
+    const nikkahDate = new Date(cfg.nikkahDateISO);
+    // Day-first, the way the printed invitation sets it: "17 OCTOBER 2026"
+    const tickerDate =
+      `${nikkahDate.getDate()} ` +
+      `${nikkahDate.toLocaleDateString("en-US", { month: "long" })} ` +
+      `${nikkahDate.getFullYear()}`;
 
+    const unit =
+      `${cfg.groom.split(" ")[0]} &amp; ${cfg.bride.split(" ")[0]}` +
+      ` <span aria-hidden="true">&#9670;</span> ` +
+      `${tickerDate}` +
+      ` <span aria-hidden="true">&#9670;</span> ` +
+      `Our Nikkah` +
+      ` <span aria-hidden="true">&#9670;</span> `;
+    // Repeat enough times to comfortably fill any screen width, then
+    // duplicate the whole thing once more so the loop point is seamless.
     const half = unit.repeat(6);
 
     tracks.forEach((track) => {
@@ -202,6 +242,8 @@
   }
 
   /* ---------- Extra guest name fields ---------- */
+  // When "Number of Guests" is more than 1, ask for each additional guest's
+  // name so the couple knows who's actually coming, not just a headcount.
   function initGuestNames() {
     const select = document.getElementById("guestCount");
     const container = document.getElementById("guestNamesContainer");
@@ -212,7 +254,8 @@
       container.innerHTML = "";
 
       if (value === "5") {
-        // "5+" is open-ended, so a free-text list is more practical 
+        // "5+" is open-ended, so a free-text list is more practical than
+        // guessing how many individual fields to render.
         container.innerHTML = `
           <div class="form-row">
             <label for="guestNamesExtra">Names of Additional Guests</label>
@@ -236,10 +279,11 @@
     }
 
     select.addEventListener("change", render);
-    render(); 
+    render(); // in case the select isn't at its default value on load
   }
 
   /* ---------- Hide guest count when declining ---------- */
+  // Doesn't make sense to ask "how many guests" if they're not coming at all.
   function initAttendingToggle() {
     const radios = document.querySelectorAll('input[name="attending"]');
     const guestRow = document.getElementById("guestCountRow");
@@ -259,7 +303,7 @@
     }
 
     radios.forEach((r) => r.addEventListener("change", render));
-    render(); 
+    render(); // in case a radio is pre-checked on load
   }
 
   /* ---------- RSVP submit ---------- */
@@ -271,10 +315,11 @@
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const data = Object.fromEntries(new FormData(form).entries());
-      data.coupleNames = `${cfg.groom} & ${cfg.bride}`;
-      data.venueName = cfg.venueName;
-      data.venueAddress = cfg.venueAddress;
 
+      // Fold the dynamically-added guest-name fields (guestName2,
+      // guestName3, ... or the "5+" guestNamesExtra textarea) into one
+      // clean "guestNames" string, so the Sheet/email get a single tidy
+      // field regardless of how many were rendered.
       const guestNameKeys = Object.keys(data).filter((k) => k.startsWith("guestName") && k !== "guestCount");
       if (guestNameKeys.length) {
         const names = guestNameKeys
@@ -299,9 +344,11 @@
         saved.push({ ...data, submittedAt: new Date().toISOString() });
         localStorage.setItem("rsvps", JSON.stringify(saved));
       } catch (_) {
+        /* localStorage unavailable — ignore */
       }
 
       if (!cfg.googleScriptUrl) {
+        // No backend configured yet — confirm receipt locally.
         status.textContent =
           "RSVP saved on this device. Add your Google Apps Script URL in js/config.js so responses reach you directly.";
         status.classList.add("success");
@@ -313,6 +360,11 @@
       }
 
       try {
+        // Apps Script web apps don't return CORS headers fetch() can read,
+        // so this is sent "no-cors": the request still reaches the script
+        // and the notification email still sends, but the response body is opaque —
+        // there's no way to confirm success/failure from here. A network
+        // failure (offline, blocked, etc.) is still caught below.
         await fetch(cfg.googleScriptUrl, {
           method: "POST",
           mode: "no-cors",
@@ -338,6 +390,7 @@
   /* ---------- Init ---------- */
   document.addEventListener("DOMContentLoaded", () => {
     populateContent();
+    renderItinerary();
     startCountdown();
     initHeaderScroll();
     initNavToggle();
