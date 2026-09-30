@@ -388,7 +388,21 @@ main { position: relative; }
   .invite-card {
     width: 100%;
     margin: 0;
-    padding: 56px 28px;
+    padding: 56px 34px;
+  }
+  /* The band shows the right-hand corner sprays; this mirrored copy of the
+     same view puts matching sprays in the left corners, so both sides are
+     dressed and the middle stays clear for the wording */
+  .hero::before {
+    display: block;
+    inset: 0;
+    width: auto;
+    height: auto;
+    opacity: 1;
+    background: url("../images/hero-scene.jpg?v=2") 92% center / cover no-repeat;
+    transform: scaleX(-1);
+    -webkit-mask-image: linear-gradient(to left, #000 14%, transparent 26%);
+    mask-image: linear-gradient(to left, #000 14%, transparent 26%);
   }
 }
 
@@ -762,7 +776,7 @@ main { position: relative; }
    Marble paper with jasmine branches in three corners (images/details-bg.jpg),
    and the wording set in Cormorant throughout. */
 #details {
-  background: #f3efe4 url("../images/details-bg.jpg?v=1") center / cover no-repeat;
+  background: #faf4e8 url("../images/details-bg.jpg?v=1") center / cover no-repeat;
 }
 #details::before, #details::after { display: none; }
 #details .dua-arabic { color: var(--leaf-green-deep); line-height: 1.6; margin: 0 0 8px; }
@@ -836,7 +850,12 @@ main { position: relative; }
 @media (max-width: 760px) {
   /* The stacked layout is tall, so show the artwork at full width along
      the top rather than cropping its corner florals away */
-  #details { background-size: 100% auto; background-position: center top; }
+  #details {
+    background:
+      linear-gradient(rgba(250, 244, 232, 0) 55%, #faf4e8) center top / 100% 56.6vw no-repeat,
+      url("../images/details-bg.jpg?v=1") center top / 100% auto no-repeat,
+      #faf4e8;
+  }
   #details .facts { grid-template-columns: 1fr; }
   #details .facts .fact + .fact { padding-top: 26px; }
 }
@@ -1081,6 +1100,11 @@ main { position: relative; }
   font-size: 0.75em;
   margin: 0 24px;
   vertical-align: 0.12em;
+}
+@media (max-width: 700px) {
+  .marquee { padding: 9px 0; }
+  .marquee-half { font-size: 0.74rem; }
+  .marquee-half span { margin: 0 14px; }
 }
 @keyframes marquee-scroll {
   from { transform: translateX(0); }
