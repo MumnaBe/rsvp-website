@@ -792,16 +792,6 @@ main { position: relative; }
   margin: 0;
   line-height: 1.2;
 }
-.itin-date-label {
-  grid-column: 1 / -1;
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.74rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold-dark);
-  margin: 6px 0 0;
-}
 
 .timeline {
   list-style: none;
@@ -910,7 +900,6 @@ main { position: relative; }
 .timeline-btn:hover { background: var(--leaf-green); }
 /* Small capitals in this section use the navigation's lettering: bold
    Cormorant Garamond, uppercase, widely spaced */
-.itin-date-label,
 .timeline-time,
 .timeline-btn {
   font-family: var(--font-script);
@@ -918,7 +907,6 @@ main { position: relative; }
   letter-spacing: 0.12em;
   font-variant-numeric: lining-nums;
 }
-.itin-date-label { font-size: 0.82rem; }
 .timeline-time { font-size: 0.74rem; }
 .timeline-btn { font-size: 0.74rem; }
 @media (max-width: 480px) {
